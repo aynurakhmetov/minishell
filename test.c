@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 18:01:16 by ajeanett          #+#    #+#             */
-/*   Updated: 2020/11/26 18:29:10 by ajeanett         ###   ########.fr       */
+/*   Updated: 2020/11/26 21:10:16 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,12 @@ void    init_env(t_all *all, char **envp)
     while (envp[j])
         j++;
     //printf("ft_strlen = %d \n", j);
-    all->copy_env = malloc(j + 1);
+    all->copy_env = (char **)malloc((j + 1) * sizeof(char *));
     all->copy_env[j] = NULL;
     while (i < j)
     {
         all->copy_env[i] = ft_strdup(envp[i]);
+        printf("all->copy_env[%d] = %s \n", i, all->copy_env[i]);
         i++;
     }
 }
@@ -142,53 +143,82 @@ void    main_parser(t_all *all, const char c, char  **str)
     //printf("2 s1 = %s, char = %c\n", *str, c);
 }
 
-// char    *find_var(char *str, char **envp)
-// {
-//     char *var;
-//     char *find;
-//     int i;
+char    *find_var(char *str, char **envp)
+{
+    // char *var;
+    char *find;
+    int i;
 
-//     i = 0;
-//     while (envp[i])
-//     {
-//         if (ft_strncmp(str, envp[i], ft_strlen(str)) == 0)
-//         {
+    i = 0;
+    while (envp[i])
+    {
+        if (ft_strncmp(str, envp[i], ft_strlen(str)) == 0)
+        {
+            find = ft_strchr(envp[i], '=');
+            find++;
+            // printf("value var %s\n", find);
+            return(find);
+        }
+        i++;
+    }
+    return (NULL);
+}
 
-//         }
-//         i++;
-//     }
-//     return (NULL)
-// }
+void    var_to_arg(char **arg,char *var)
+{
+    int i;
 
-void    check_var(char *line, int i, char **arg, t_all *all)
+    i = 0;
+    while (var[i] != '\0')
+    {
+        line_to_arg(arg, var[i]);
+        i++;
+    }
+}
+
+int    check_var(char *line, int *i, char **arg, t_all *all)
 {
     char *var;
+    char *var_tmp;
     int  tmp;
     size_t len; 
 
-    tmp = i;
+    tmp = *i;
     tmp++;
     var = NULL;
     if (arg && all)
         all->var_$ = 0;
     if ((line[tmp] == ' ') || (line[tmp] == '\0'))
     {
-        line_to_arg(arg, line[i]);
+        line_to_arg(arg, line[*i]);
         all->name_parsed == 0 ? all->name_parsed = 1 : 0;
-        return;
+        return (0);
     }
     while (!(ft_strchr(" $;|<>\"\'", line[tmp])))
         tmp++;
     if ((ft_strchr(" $;|<>\"\'", line[tmp])))
     {
-        len = (size_t)(tmp - i - 1);
-        var = ft_substr(line, (i + 1), len);
+        len = (size_t)(tmp - *i - 1);
+        tmp = *i;
+        var = ft_substr(line, (tmp + 1), len);
+        var_tmp = var;
     }
     if (var)
     {
-        //printf("var: %s\n", var);
-        // var = find_var(var, all->copy_env);
+        printf("var: %s\n", var);
+        var = find_var(var, all->copy_env);
+        printf("value var %s\n", var);
+        if (var != NULL)
+        {
+            *i = *i + len;
+            if (line[*i + 1] == ' ')
+                all->name_parsed = 1;
+            var_to_arg(arg, var);
+            return (1);
+        }
+        free(var_tmp);
     }
+    return (0);
 }
 
 char	**ft_realloc(char **ptr, size_t newsize)
@@ -248,7 +278,6 @@ void parser(char *line, t_all *all)
         //printf("0 line [i] = %c i = %d\n", line[i], i);
         while (ft_isspace(line[i]) && all->sq_open == 0 && all->dq_open == 0)
         {
-            i++;
             //printf("0.1 line [i] = %c i = %d line %s\n", line[i], i, line);
             if (all->name_parsed == 1)
             {
@@ -266,13 +295,16 @@ void parser(char *line, t_all *all)
                 //printf("0.22 line [i] = %c i = %d line %s\n", line[i], i, line);
                 arg[arg_count + 1] = NULL;
             }
+            i++;
             //printf("0.3 line [i] = %c i = %d line %s\n", line[i], i, line);
         }
         //printf("1 line [i] = %c i = %d\n", line[i], i);
         if (all->sq_open == 0 && all->dq_open == 0)
             main_parser(all, line[i], &arg[arg_count]);
         if (all->var_$ == 1)
-            check_var(line, i, &arg[arg_count], all);
+        {
+            check_var(line, &i, &arg[arg_count], all);
+        }
         i++;
     }
     // write(1,"\n", 1);
@@ -294,12 +326,15 @@ void parser(char *line, t_all *all)
     i = -1;
     while(arg && arg[++i])
         if (arg[i])
+        {
             free(arg[i]);
+            arg[i] = NULL;
+        }
     if (arg) free(arg);
     arg = NULL;
 }
 
-int     main(int argc, char **argv)//, char **envp)
+int     main(int argc, char **argv, char **envp)
 {
     t_all   all;
 
@@ -307,7 +342,7 @@ int     main(int argc, char **argv)//, char **envp)
     // set_prompt("ajeanett% ", &all);
     // //printf("%s", get_prompt(&all));
     init_struct(&all);
-    //init_env(&all, envp);
+    init_env(&all, envp);
     // int i = 0;
     if (argc > 1 && argv[1])
         ft_putendl_fd("Error.\nToo many arguments", 2);
