@@ -12,12 +12,30 @@
 
 #include "./minishell.h"
 
-int main()
+int ft_echo(t_all *all)
 {
-	int x;
+	int i;
+	int k;
 
-	x = 10;
-	x = x * 2;
-	printf("%d\n", x);
+	i = 0;
+	k = 0;
+	while(all->arg[++i])
+	{
+		if (ft_strncmp(all->arg[i],  "-n", ft_strlen("-n")) == 0
+		&& ft_strncmp(all->arg[i - k - 1],  "echo", ft_strlen("echo")) == 0)
+		{
+			k++;
+			continue ;
+		}
+		ft_putstr_fd(all->arg[i], 1);
+		if (all->arg[i + 1] != 0)
+			ft_putchar_fd(' ', 1);
+	}
+	if (k == 0)
+		ft_putchar_fd('\n', 1);
+	
+	// Открывать папки?
+	// Кавычки
+	// Запись?
 	return (0);
 }

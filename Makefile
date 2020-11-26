@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 NAME = minishell
-SRCS =	ft_echo.c
+SRCS =	main.c ft_echo.c ft_cd.c
 	
 OBJECTS = $(SRCS:.c=.o)
 FLAGS = gcc -Wall -Wextra -Werror
@@ -19,7 +19,8 @@ FLAGS = gcc -Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
-	gcc $(OBJECTS) -o $(NAME) 
+	make -C libft/
+	gcc $(OBJECTS) libft/libft.a -o $(NAME) 
 
 %.o: %.c
 	$(FLAGS) -o $@ -c $^
