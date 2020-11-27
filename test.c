@@ -6,11 +6,11 @@
 /*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 18:01:16 by ajeanett          #+#    #+#             */
-/*   Updated: 2020/11/27 19:29:46 by ajeanett         ###   ########.fr       */
+/*   Updated: 2020/11/27 20:14:35 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+# include "minishell.h"
 
 void    init_struct(t_all *all)
 {
@@ -28,7 +28,6 @@ void    init_struct(t_all *all)
     all->arg = NULL;
 }
 
-
 void    init_env(t_all *all, char **envp)
 {
     int i;
@@ -44,7 +43,7 @@ void    init_env(t_all *all, char **envp)
     while (i < j)
     {
         all->copy_env[i] = ft_strdup(envp[i]);
-        printf("all->copy_env[%d] = %s \n", i, all->copy_env[i]);
+        // printf("all->copy_env[%d] = %s \n", i, all->copy_env[i]);
         i++;
     }
 }
@@ -168,14 +167,24 @@ char    *find_var(char *str, char **envp)
     return (NULL);
 }
 
-void    var_to_arg(char **arg,char *var)
+void    var_to_arg(char *var, t_all *all)
 {
     int i;
 
     i = 0;
     while (var[i] != '\0')
     {
-        line_to_arg(arg, var[i]);
+        if (var[i] == ' ')
+        {
+            all->count++;
+            all->size++;
+            all->arg = ft_realloc(all->arg, all->size);
+            all->arg[all->count] = ft_strdup("");
+            all->arg[all->count + 1] = NULL;
+        }
+        while(ft_isspace(var[i]))
+            i++;
+        line_to_arg(&(all->arg[all->count]), var[i]);
         i++;
     }
 }
@@ -217,7 +226,7 @@ int    check_var(char *line, int *i, char **arg, t_all *all)
             *i = *i + len;
             if (line[*i + 1] == ' ')
                 all->name_parsed = 1;
-            var_to_arg(arg, var);
+            var_to_arg(var, all);
             return (1);
         }
         free(var_tmp);
