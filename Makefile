@@ -10,11 +10,12 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = minishell
-SRCS =	main.c ft_echo.c ft_cd.c
+NAME = a.out
+SRCS =	main.c ft_echo.c ft_cd.c ft_pwd.c ft_export.c ft_env.c ft_unset.c \
+		ft_exit.c
 	
 OBJECTS = $(SRCS:.c=.o)
-FLAGS = gcc -Wall -Wextra -Werror
+FLAGS = gcc -g -Wall -Wextra -Werror
 
 all: $(NAME)
 

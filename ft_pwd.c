@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cd.c                                            :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmarva <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/26 17:25:24 by gmarva            #+#    #+#             */
-/*   Updated: 2020/11/26 17:25:26 by gmarva           ###   ########.fr       */
+/*   Created: 2020/11/27 07:22:02 by gmarva            #+#    #+#             */
+/*   Updated: 2020/11/27 07:22:08 by gmarva           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./minishell.h"
 
-int ft_cd(t_all *all)
+int		ft_pwd(t_all *all)
 {
-	int result;
+	char	dir[1000];
+	int		i;
 
-	result = chdir(all->arg[1]);
-	printf("%s %d\n", all->arg[1], result);
-	if (result == -1)
-	{
-		ft_putstr_fd("cd: no such file or directory: ", 1);
-		ft_putendl_fd(all->arg[1], 1);
-	}
-	return (result);
+	i = 0;
+	if (all->arg[0] != 0)
+		i++;
+	getcwd(dir, 10000);
+	ft_putendl_fd(dir, 1);
+	// Обработать ошибки
+	return (0);
 }

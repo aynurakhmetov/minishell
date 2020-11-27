@@ -40,10 +40,20 @@ int		main(int argc, char *argv[], char *envp[])
 	{
 		all.env = ft_array_copy(envp, 0);
 		all.arg = ft_array_copy(argv, 1);
-		if (ft_strncmp(argv[1],  "echo", ft_strlen("echo")) == 0)
+		if (ft_strncmp(argv[1], "echo", ft_strlen("echo")) == 0)
 			ft_echo(&all);
-		if (ft_strncmp(argv[1],  "cd", ft_strlen("cd")) == 0)
+		if (ft_strncmp(argv[1], "cd", ft_strlen("cd")) == 0)
 			result = ft_cd(&all);
+		if (ft_strncmp(argv[1], "pwd", ft_strlen("pwd")) == 0)
+			result = ft_pwd(&all);
+		if (ft_strncmp(argv[1], "export", ft_strlen("export")) == 0)
+			result = ft_export(&all);
+		if (ft_strncmp(argv[1], "env", ft_strlen("env")) == 0)
+			result = ft_env(&all);
+		if (ft_strncmp(argv[1], "unset", ft_strlen("unset")) == 0)
+			result = ft_unset(&all);
+		if (ft_strncmp(argv[1],  "exit", ft_strlen("exit")) == 0)
+			ft_exit(&all);
 	}
 	return (0);
 }
