@@ -42,18 +42,30 @@ int		main(int argc, char *argv[], char *envp[])
 		all.arg = ft_array_copy(argv, 1);
 		if (ft_strncmp(argv[1], "echo", ft_strlen("echo")) == 0)
 			ft_echo(&all);
-		if (ft_strncmp(argv[1], "cd", ft_strlen("cd")) == 0)
+		else if (ft_strncmp(argv[1], "cd", ft_strlen("cd")) == 0)
 			result = ft_cd(&all);
-		if (ft_strncmp(argv[1], "pwd", ft_strlen("pwd")) == 0)
+		else if (ft_strncmp(argv[1], "pwd", ft_strlen("pwd")) == 0)
 			result = ft_pwd(&all);
-		if (ft_strncmp(argv[1], "export", ft_strlen("export")) == 0)
+		else if (ft_strncmp(argv[1], "export", ft_strlen("export")) == 0)
 			result = ft_export(&all);
-		if (ft_strncmp(argv[1], "env", ft_strlen("env")) == 0)
+		else if (ft_strncmp(argv[1], "env", ft_strlen("env")) == 0)
 			result = ft_env(&all);
-		if (ft_strncmp(argv[1], "unset", ft_strlen("unset")) == 0)
+		else if (ft_strncmp(argv[1], "unset", ft_strlen("unset")) == 0)
 			result = ft_unset(&all);
-		if (ft_strncmp(argv[1],  "exit", ft_strlen("exit")) == 0)
+		else if (ft_strncmp(argv[1],  "exit", ft_strlen("exit")) == 0)
 			ft_exit(&all);
+		else if (ft_strncmp(argv[1],  "$?", ft_strlen("$?")) == 0)
+			ft_s_result(&all);
+		else
+		{
+			//printf("Ya tut\n");
+			ft_execve(&all);
+		}
+		// Сделать ЭКЗЭКВЕЕ для всех остальных
+		// Возврат кода функции для $?
+		// Еще ддя команд нот фаунд
+		// Принимаю редиректы < > “>>” + чекать флаг редиректов
+		// Флаг пайп, если поднят -> сохранять открытми fd
 	}
 	return (0);
 }

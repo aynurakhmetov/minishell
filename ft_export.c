@@ -55,12 +55,23 @@ int		ft_export(t_all *all)
 {
 	char **sort_env;
 	int i;
+	int j;
 
 	i = -1;
 	sort_env = ft_array_copy(all->env, 0);
 	ft_sort_env(sort_env);
 	while (sort_env[++i] != 0)
-		ft_putendl_fd(sort_env[i], 1);
+	{
+		ft_putstr_fd("declare -x ", 1);
+		j = -1;
+		while (sort_env[i][++j] != 0)
+		{
+			if (sort_env[i][j] == '=')
+				ft_putchar_fd('"', 1);
+			ft_putchar_fd(sort_env[i][j], 1);
+		}
+		ft_putendl_fd("\"", 1);
+	}
 	ft_free_array(sort_env);
 	// Обработать ошибки
 	// Сравнить с выводом оригинальным

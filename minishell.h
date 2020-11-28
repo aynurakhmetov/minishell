@@ -1,12 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/types.h>
+#include <dirent.h>
 #include "./libft/libft.h"
 
 typedef struct	s_all
 {
 	char	**arg;
 	char	**env;
+	int		$_res;
 	int		fd;
 }				t_all;
 
@@ -20,3 +23,5 @@ int		ft_export(t_all *all);
 int		ft_env(t_all *all);
 int		ft_unset(t_all *all);
 void	ft_exit(t_all *all);
+void	ft_s_result(t_all *all);
+void	ft_execve(t_all *all);
