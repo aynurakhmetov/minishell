@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 18:01:16 by ajeanett          #+#    #+#             */
-/*   Updated: 2020/11/27 20:14:35 by ajeanett         ###   ########.fr       */
+/*   Updated: 2020/12/19 19:22:00 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ char	*ft_chrjoin(char const *s1, char const s2)
 	char *c;
 	char *t;
 
-    //printf("s1 = %s, char = %c\n", s1, s2);
+    printf("s1 = %s, char = %c\n", s1, s2);
 	if (!s1 && s2)
 		return (ft_strdup(&s2));
 	if (s1 && !s2)
@@ -130,8 +130,8 @@ static int		line_to_arg(char **line, char chr)
 
 void    main_parser(t_all *all, const char c, char  **str)
 {
-    if (!str)
-        *str = ft_strdup("");
+    if (all->arg[all->count] == NULL)
+        all->arg[all->count] = ft_strdup("");
     if (c == '$')
     {
         all->var_$ == 0 ? all->var_$ = 1 : 0;
@@ -140,8 +140,8 @@ void    main_parser(t_all *all, const char c, char  **str)
     //printf("0 s1 = %s, char = %c\n", *str, c);
     if (!(ft_isspace(c)))
         {
-        line_to_arg(str, c);
-        all->name_parsed == 0 ? all->name_parsed = 1 : 0;
+            line_to_arg(str, c);
+            all->name_parsed == 0 ? all->name_parsed = 1 : 0;
         }
     //printf("2 s1 = %s, char = %c\n", *str, c);
 }
@@ -266,6 +266,28 @@ char	**ft_realloc(char **ptr, size_t newsize)
 
 //     return(size)
 // }
+void dqotes_parser(t_all *all, char *line,int *i)
+{
+    int tmp;
+
+    all->name_parsed == 0 ? all->name_parsed = 1 : 0;
+    tmp = *i;
+    if (all->arg[all->count] == NULL)
+        all->arg[all->count] = ft_strdup("");
+    tmp++;
+    while (line[tmp] != '"')
+    {
+        if (line[tmp] == '$')
+            check_var(line, &tmp, &(all->arg[all->count]), all);
+        else
+            line_to_arg(&(all->arg[all->count]), line[tmp]);
+        tmp++;
+    }
+    printf("line[tmp] = %c, tmp = %d\n", line[tmp], tmp);
+    // tmp++;
+    // printf("line[tmp] = %c, tmp = %d\n", line[tmp], tmp);
+    *i = tmp;
+}
 
 void parser(char *line, t_all *all)
 {
@@ -287,7 +309,7 @@ void parser(char *line, t_all *all)
     {
         // write(1,&line[i], 1);
         //printf("0 line [i] = %c i = %d\n", line[i], i);
-        while (ft_isspace(line[i]) && all->sq_open == 0 && all->dq_open == 0)
+        while (ft_isspace(line[i]) /*&& all->sq_open == 0 && all->dq_open == 0*/)
         {
             //printf("0.1 line [i] = %c i = %d line %s\n", line[i], i, line);
             if (all->name_parsed == 1)
@@ -309,8 +331,10 @@ void parser(char *line, t_all *all)
             i++;
             //printf("0.3 line [i] = %c i = %d line %s\n", line[i], i, line);
         }
+        if (line[i] == '"')
+            dqotes_parser(all, line, &i);
         //printf("1 line [i] = %c i = %d\n", line[i], i);
-        if (!ft_isspace(line[i]) && all->sq_open == 0 && all->dq_open == 0)
+        if (!ft_isspace(line[i]) && all->sq_open == 0 && line[i] != '"')
             main_parser(all, line[i], &(all->arg[all->count]));
         if (all->var_$ == 1)
             check_var(line, &i, &(all->arg[all->count]), all);
@@ -376,13 +400,9 @@ int     main(int argc, char **argv, char **envp)
             //printf("main line: %d %s\n", ret, line);
             if (ret >= 0)
                 parser(line, &all);
+            //Ainur function
             if (line)
                 free(line);
-            // if (feof(0))
-            // {
-			//     exit(0);
-			//     return 0;
-		    // }
     }
     return (0);
 }
