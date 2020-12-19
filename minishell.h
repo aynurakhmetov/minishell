@@ -20,6 +20,7 @@ int		ft_echo(t_all *all);
 int		ft_cd(t_all *all);
 int		ft_pwd(t_all *all);
 int		ft_export(t_all *all);
+int		ft_export_set(t_all *all);
 int		ft_env(t_all *all);
 int		ft_unset(t_all *all);
 void	ft_exit(t_all *all);

@@ -12,8 +12,6 @@
 
 #include "./minishell.h"
 
-
-
 int		ft_cd(t_all *all)
 {
 	int	result;

@@ -12,7 +12,7 @@
 
 NAME = a.out
 SRCS =	main.c ft_echo.c ft_cd.c ft_pwd.c ft_export.c ft_env.c ft_unset.c \
-		ft_exit.c ft_s_result.c ft_execve.c
+		ft_exit.c ft_s_result.c ft_execve.c ft_export_set.c
 	
 OBJECTS = $(SRCS:.c=.o)
 FLAGS = gcc -g -Wall -Wextra -Werror
@@ -25,6 +25,9 @@ $(NAME): $(OBJECTS)
 
 %.o: %.c
 	$(FLAGS) -o $@ -c $^
+
+test:
+	$(FLAGS) test.c -o test
 
 clean:
 	rm -rf $(OBJECTS)

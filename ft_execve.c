@@ -23,6 +23,8 @@ int		ft_get_i_enf(char **ienv)
 	return (-1);
 }
 
+
+// Добавить ФОРК дочерний процесс
 void	ft_execve(t_all *all)
 {
 	char	**tmp;
