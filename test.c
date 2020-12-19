@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 18:01:16 by ajeanett          #+#    #+#             */
-/*   Updated: 2020/12/19 19:22:00 by ajeanett         ###   ########.fr       */
+/*   Updated: 2020/12/19 19:48:08 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,6 +289,26 @@ void dqotes_parser(t_all *all, char *line,int *i)
     *i = tmp;
 }
 
+void sqotes_parser(t_all *all, char *line,int *i)
+{
+    int tmp;
+
+    all->name_parsed == 0 ? all->name_parsed = 1 : 0;
+    tmp = *i;
+    if (all->arg[all->count] == NULL)
+        all->arg[all->count] = ft_strdup("");
+    tmp++;
+    while (line[tmp] != 39)
+    {
+        line_to_arg(&(all->arg[all->count]), line[tmp]);
+        tmp++;
+    }
+    printf("line[tmp] = %c, tmp = %d\n", line[tmp], tmp);
+    // tmp++;
+    // printf("line[tmp] = %c, tmp = %d\n", line[tmp], tmp);
+    *i = tmp;
+}
+
 void parser(char *line, t_all *all)
 {
     int i;
@@ -333,8 +353,10 @@ void parser(char *line, t_all *all)
         }
         if (line[i] == '"')
             dqotes_parser(all, line, &i);
+        if (line[i] == 39)
+            sqotes_parser(all, line, &i);
         //printf("1 line [i] = %c i = %d\n", line[i], i);
-        if (!ft_isspace(line[i]) && all->sq_open == 0 && line[i] != '"')
+        if (!ft_isspace(line[i]) && (int)line[i] != 39 && line[i] != '"')
             main_parser(all, line[i], &(all->arg[all->count]));
         if (all->var_$ == 1)
             check_var(line, &i, &(all->arg[all->count]), all);
