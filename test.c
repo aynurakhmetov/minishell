@@ -12,8 +12,11 @@ int main ()
 	if ((pid = fork()) < 0)
 		printf("Ошибка форк");	
 	else if (pid == 0)
-		printf("Fork-Test2 %d\n", pid);
+		printf("Fork-Test2 %d\n", (int)pid);
 	else
-		printf("Родительский");	
+		printf("Родительский\n");
+
+
+		
 	return EXIT_SUCCESS;
 }

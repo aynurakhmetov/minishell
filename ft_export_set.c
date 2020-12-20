@@ -29,7 +29,7 @@ void	ft_add_to_env(t_all *all, char *newvalue)
 	array_copy[i + 1] = 0;
 	ft_free_array(all->env);
 	all->env = array_copy;
-	printf("%s %s %s\n", array_copy[i - 1], array_copy[i], array_copy[i + 1]);
+	//printf("%s %s %s\n", array_copy[i - 1], array_copy[i], array_copy[i + 1]);
 }
 
 void	ft_set_value_env(t_all *all)

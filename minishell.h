@@ -11,6 +11,7 @@ typedef struct	s_all
 	char	**env;
 	int		$_res;
 	int		fd;
+	int		count;
 }				t_all;
 
 
@@ -26,3 +27,4 @@ int		ft_unset(t_all *all);
 void	ft_exit(t_all *all);
 void	ft_s_result(t_all *all);
 void	ft_execve(t_all *all);
+void	ft_choice_function(t_all *all);
