@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 07:04:14 by gmarva            #+#    #+#             */
-/*   Updated: 2020/12/20 16:39:16 by ajeanett         ###   ########.fr       */
+/*   Updated: 2020/12/20 20:56:39 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,16 @@ void	ft_choice_function(t_all *all)
 		//printf("Ya tut\n");
 		int *status = NULL;
 		pid_t pid;
-		wait(status);
+		// printf("%d\n", 11);
 		if ((pid = fork()) < 0)
 			ft_putendl_fd("fork_error", 1);
 		else if (pid == 0)
+		{
 			ft_execve(all);
+			exit(0);
+		}
+		wait(status);
+		// printf("%d\n", 12);
 		return;
 	}
 	// Проверить ЭКЗЭКВЕЕ для всех остальных
