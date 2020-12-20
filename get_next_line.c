@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 00:40:10 by gmarva            #+#    #+#             */
-/*   Updated: 2020/11/27 19:58:05 by ajeanett         ###   ########.fr       */
+/*   Updated: 2020/12/20 19:47:56 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int		get_next_line(int fd, char **line)
 	int			bytes;
 	char	*mem;
 	mem = NULL;
+	// char	*tmp;
 
 	bytes = 1;
 	if (fd < 0 || !line || BUFFER_SIZE <= 0)
@@ -105,17 +106,20 @@ int		get_next_line(int fd, char **line)
 		if (bytes == -1)
 			return (-1);
 		buf[bytes] = '\0';
-		mem = ft_strjoin(mem, buf);
+		// tmp = mem;
+		mem = ft_strjoin2(mem, buf);
+		// free(tmp);
 	}
 	if (!(*line = ft_newline(mem)) || !mem)
 		return (-1);
 	if ((mem = ft_endtest(mem)) != 0)
 		if ((mem = ft_newmem(mem)) == 0)
 			return (-1);
-	if (bytes == 0 && mem)
+	if (mem)
 	{
 		free(mem);
 		mem = NULL;
 	}
 	return (bytes == 0 ? 0 : 1);
 }
+//облегчить ГНЛ

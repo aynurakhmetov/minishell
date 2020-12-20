@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 18:01:16 by ajeanett          #+#    #+#             */
-/*   Updated: 2020/12/20 16:14:47 by ajeanett         ###   ########.fr       */
+/*   Updated: 2020/12/20 19:27:12 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,33 +61,55 @@ static void		ft_free(char **str)
 	*str = NULL;
 }
 
-char	*ft_chrjoin(char const *s1, char const s2)
-{
-	char *c;
-	char *t;
+// char	*ft_chrjoin(char *s1, char const s2)
+// {
+// 	char *c;
+// 	char *t;
 
-	if (!s1 && s2)
-		return (ft_strdup(&s2));
-	if (s1 && !s2)
-		return (ft_strdup(s1));
-    // if (s1[0] == '\0')
-    // {
-    //     c = malloc(2);
-    //     c[0] = s2;
-    //     c[1] = '\0';
-	//     return (c);
-    // }
-	c = s1 && s2 ? malloc(ft_strlen(s1) + 2) : NULL;
-	if (c)
+// 	if (!s1 && s2)
+// 		return (ft_strdup(&s2));
+// 	if (s1 && !s2)
+// 		return (ft_strdup(s1));
+//     // if (s1[0] == '\0')
+//     // {
+//     //     c = malloc(2);
+//     //     c[0] = s2;
+//     //     c[1] = '\0';
+// 	//     return (c);
+//     // }
+// 	c = s1 && s2 ? malloc(ft_strlen(s1) + 2) : NULL;
+// 	if (c)
+// 	{
+// 		t = c;
+// 		while (s1 && *s1)
+// 			*t++ = *s1++;
+// 		if (ft_isascii(s2))
+// 			*t++ = s2;
+// 		*t = '\0';
+// 	}
+// 	return (c);
+// }
+
+char	*ft_chrjoin(char *s1, const char s2)
+{
+	unsigned int	buf;
+	char			*str;
+    int             i;
+    
+    i = 0;
+	buf = ft_strlen(s1) + 1;
+	str = ((char *)malloc(sizeof(char) * (buf + 1)));
+	if (!str)
+		return (NULL);
+	while (s1[i] != '\0')
 	{
-		t = c;
-		while (s1 && *s1)
-			*t++ = *s1++;
-		if (ft_isascii(s2))
-			*t++ = s2;
-		*t = '\0';
+		str[i] = s1[i];
+        i++;
 	}
-	return (c);
+	if (s2 != '\0')
+		str[i++] = s2;
+	str[i++] = '\0';
+	return (str);
 }
 
 static int		line_to_arg(char **line, char chr)
@@ -291,7 +313,7 @@ void parser(char *line, t_all *all)
     all->count = 0;
     all->pipe = 0;
     all->redir = 0;
-    all->arg[all->count] = ft_strdup("");
+    all->arg[all->count] = NULL; //ft_strdup("");
     all->arg[all->size - 1] = NULL;
     all->name_parsed = 0;
     // printf("line: %s %zu\n\n", line, ft_strlen(line));
@@ -347,7 +369,7 @@ void parser(char *line, t_all *all)
     // printf("!!! %s\n", all->arg[0]);
     //printf("%d %s\n", 11, all->arg[0]);
 
-    ft_choice_function(all);
+    // ft_choice_function(all);
   
     i = -1;
     while(all->arg && all->arg[++i])

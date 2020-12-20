@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 13:18:38 by gmarva            #+#    #+#             */
-/*   Updated: 2020/12/20 16:30:31 by ajeanett         ###   ########.fr       */
+/*   Updated: 2020/12/20 19:44:44 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,33 +99,33 @@ char	*ft_strdup(const char *src)
 // 	return (dup);
 // }
 
-// char	*ft_strjoin(char const *s1, char const *s2)
-// {
-// 	char	*str;
-// 	size_t	i;
-// 	size_t	j;
-// 	size_t	s1len;
-// 	size_t	s2len;
+char	*ft_strjoin2(char const *s1, char const *s2)
+{
+	char	*str;
+	size_t	i;
+	size_t	j;
+	size_t	s1len;
+	size_t	s2len;
 
-// 	j = 0;
-// 	if (!s1 && !s2)
-// 		return (0);
-// 	s1len = ft_strlen(s1);
-// 	s2len = ft_strlen(s2);
-// 	if (!(str = (char *)malloc((s1len + s2len + 1) * sizeof(char))))
-// 	{
-// 		free((char *)s1);
-// 		return (0);
-// 	}
-// 	i = -1;
-// 	while (++i < s1len)
-// 		str[i] = s1[i];
-// 	while (j < s2len)
-// 		str[i++] = s2[j++];
-// 	str[i] = '\0';
-// 	free((char *)s1);
-// 	return (str);
-// }
+	j = 0;
+	if (!s1 && !s2)
+		return (0);
+	s1len = ft_strlen(s1);
+	s2len = ft_strlen(s2);
+	if (!(str = (char *)malloc((s1len + s2len + 1) * sizeof(char))))
+	{
+		free((char *)s1);
+		return (0);
+	}
+	i = -1;
+	while (++i < s1len)
+		str[i] = s1[i];
+	while (j < s2len)
+		str[i++] = s2[j++];
+	str[i] = '\0';
+	free((char *)s1);
+	return (str);
+}
 
 char	*ft_strchr(const char *str, int ch)
 {

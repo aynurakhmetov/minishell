@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 01:29:21 by gmarva            #+#    #+#             */
-/*   Updated: 2020/11/26 13:09:03 by ajeanett         ###   ########.fr       */
+/*   Updated: 2020/12/20 19:49:15 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 int		get_next_line(int fd, char **line);
 size_t	ft_strlen(const char *str);
 char	*ft_strdup(const char *str);
-char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strjoin2(char const *s1, char const *s2);
 char	*ft_strchr(const char *str, int ch);
 void	*ft_memmove(void *des, const void *src, size_t n);
 int		ft_get_i(char *src);

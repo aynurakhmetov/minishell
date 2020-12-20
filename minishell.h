@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 17:31:53 by ajeanett          #+#    #+#             */
-/*   Updated: 2020/12/20 16:10:32 by ajeanett         ###   ########.fr       */
+/*   Updated: 2020/12/20 18:14:40 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct		s_all
 }					t_all;
 
 int		get_next_line(int fd, char **line);
-char	*ft_chrjoin(const char *s1, const char s2);
+char	*ft_chrjoin(char *s1, const char s2);
 char	**ft_realloc(char **ptr, size_t newsize);
 //Ainur func
 char	**ft_array_copy(char **array_original, int i);
