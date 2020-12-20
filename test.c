@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 18:01:16 by ajeanett          #+#    #+#             */
-/*   Updated: 2020/12/19 19:48:08 by ajeanett         ###   ########.fr       */
+/*   Updated: 2020/12/20 15:15:03 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,9 @@
 void    init_struct(t_all *all)
 {
     all->backslash = 0;
-    all->dq_open = 0;
     all->pipe = 0;
     all->prompt = "ajeanett_gmarva ";
     all->redir = 0;
-    all->redir_in = 0;
-    all->redir_out = 0;
-    all->sq_open = 0;
     all->var_$ = 0;
     all->name_parsed = 0;
     all->size = 2;
@@ -142,6 +138,10 @@ void    main_parser(t_all *all, const char c, char  **str)
         {
             line_to_arg(str, c);
             all->name_parsed == 0 ? all->name_parsed = 1 : 0;
+            if (c == '|' && all->pipe == 0)
+                all->pipe = 1;
+            if (c == '<' || c == '>')
+                all->redir = 1;
         }
     //printf("2 s1 = %s, char = %c\n", *str, c);
 }
@@ -320,9 +320,10 @@ void parser(char *line, t_all *all)
         return;
     i = 0;
     all->count = 0;
+    all->pipe = 0;
+    all->redir = 0;
     all->arg[all->count] = ft_strdup("");
     all->arg[all->size - 1] = NULL;
-    all->dq_open = 0;
     all->name_parsed = 0;
     printf("line: %s %zu\n\n", line, ft_strlen(line));
     while (line[i] != '\0')
@@ -370,14 +371,10 @@ void parser(char *line, t_all *all)
         printf("\n arg%d: = %s\n", i, all->arg[i]);
         i++;
     }
-    // while(arg[i])
-    // {
 
-        // if (arg[i]) 
-        //     free(arg[i]);
-        // ft_bzero(arg[i], ft_strlen(arg[i]));
-    //     i++;
-    // }
+    printf("all->pipe is %d\n", all->pipe);
+    printf("all->redir is %d\n", all->redir);
+    printf("all->count is %d\n", all->count);
     i = -1;
     while(all->arg && all->arg[++i])
         if (all->arg[i])
