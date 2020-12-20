@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 18:01:16 by ajeanett          #+#    #+#             */
-/*   Updated: 2020/12/20 19:27:12 by ajeanett         ###   ########.fr       */
+/*   Updated: 2020/12/20 22:08:16 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ static int		line_to_arg(char **line, char chr)
 	return (0);
 }
 
-void    main_parser(t_all *all, const char c, char  **str)
+void    main_parser(t_all *all, const char c, char  **str, int *i)
 {
     if (all->arg[all->count] == NULL)
         all->arg[all->count] = ft_strdup("");
@@ -132,6 +132,8 @@ void    main_parser(t_all *all, const char c, char  **str)
         all->var_$ == 0 ? all->var_$ = 1 : 0;
         return;
     }
+    if (check_end(all, i, c) == 1)
+        return;
     //printf("0 s1 = %s, char = %c\n", *str, c);
     if (!(ft_isspace(c)))
         {
@@ -300,6 +302,52 @@ void sqotes_parser(t_all *all, char *line,int *i)
     *i = tmp;
 }
 
+void    clear_arg(t_all *all)
+{
+    int i;
+
+    i = -1;
+    while(all->arg && all->arg[++i])
+        if (all->arg[i])
+        {
+            free(all->arg[i]);
+            all->arg[i] = NULL;
+        }
+    if (all->arg) free(all->arg);
+    all->arg = NULL;
+}
+
+void    init_arg(t_all *all)
+{
+    all->size = 2;
+    if (!(all->arg = (char **)malloc(all->size * (sizeof(char *)))))
+        return;
+    all->count = 0;
+    all->pipe = 0;
+    all->redir = 0;
+    all->arg[all->count] = ft_strdup("");
+    all->arg[all->size - 1] = NULL;
+    all->name_parsed = 0;
+}
+
+int    check_end(t_all *all, int *i, char c)
+{
+    int tmp;
+
+    tmp = *i;
+    if (c == ';')
+    {
+        ft_choice_function(all);
+        clear_arg(all);
+        init_arg(all);
+        // tmp++;
+        *i = tmp;
+        return (1);
+    }
+    *i = tmp;
+    return (0);
+}
+
 void parser(char *line, t_all *all)
 {
     int i;
@@ -313,7 +361,7 @@ void parser(char *line, t_all *all)
     all->count = 0;
     all->pipe = 0;
     all->redir = 0;
-    all->arg[all->count] = NULL; //ft_strdup("");
+    all->arg[all->count] = ft_strdup("");
     all->arg[all->size - 1] = NULL;
     all->name_parsed = 0;
     // printf("line: %s %zu\n\n", line, ft_strlen(line));
@@ -321,6 +369,7 @@ void parser(char *line, t_all *all)
     {
         // write(1,&line[i], 1);
         //printf("0 line [i] = %c i = %d\n", line[i], i);
+        // check_end(all, &i, line[i]);
         while (ft_isspace(line[i]) /*&& all->sq_open == 0 && all->dq_open == 0*/)
         {
             //printf("0.1 line [i] = %c i = %d line %s\n", line[i], i, line);
@@ -349,7 +398,7 @@ void parser(char *line, t_all *all)
             sqotes_parser(all, line, &i);
         //printf("1 line [i] = %c i = %d\n", line[i], i);
         if (!ft_isspace(line[i]) && (int)line[i] != 39 && line[i] != '"')
-            main_parser(all, line[i], &(all->arg[all->count]));
+            main_parser(all, line[i], &(all->arg[all->count]), &i);
         if (all->var_$ == 1)
             check_var(line, &i, &(all->arg[all->count]), all);
         i++;
@@ -369,7 +418,7 @@ void parser(char *line, t_all *all)
     // printf("!!! %s\n", all->arg[0]);
     //printf("%d %s\n", 11, all->arg[0]);
 
-    // ft_choice_function(all);
+    ft_choice_function(all);
   
     i = -1;
     while(all->arg && all->arg[++i])
@@ -416,7 +465,7 @@ int     main(int argc, char **argv, char **envp)
             if (ret >= 0)
                 parser(line, &all);
             //Ainur function
-            //ft_choice_function(&all);
+            // ft_choice_function(&all);
             if (line)
                 free(line);
     }
