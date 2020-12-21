@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 18:01:16 by ajeanett          #+#    #+#             */
-/*   Updated: 2020/12/20 22:08:16 by ajeanett         ###   ########.fr       */
+/*   Updated: 2020/12/21 16:50:22 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,22 +123,42 @@ static int		line_to_arg(char **line, char chr)
 	return (0);
 }
 
-void    main_parser(t_all *all, const char c, char  **str, int *i)
+void    check_arg(t_all *all)
 {
+    // printf("all->name_parsed check arg1 %d\n ", all->name_parsed);
+    if (all->name_parsed == 2)
+    {
+        all->name_parsed = 1;
+        // printf("all->name_parsed check arg2 %d\n ", all->name_parsed);
+        all->count++;
+        all->size++;
+        all->arg = ft_realloc(all->arg, all->size);
+        all->arg[all->count] = ft_strdup("");
+        all->arg[all->count + 1] = NULL;
+    }
+}
+
+void    main_parser(t_all *all, const char c)
+{
+    if (check_end(all, c) == 1)
+        return;
+    check_arg(all);
     if (all->arg[all->count] == NULL)
         all->arg[all->count] = ft_strdup("");
+    // if (all->arg[all->count] == NULL)
+    //     all->arg[all->count] = ft_strdup("");
     if (c == '$')
     {
         all->var_$ == 0 ? all->var_$ = 1 : 0;
         return;
     }
-    if (check_end(all, i, c) == 1)
-        return;
-    //printf("0 s1 = %s, char = %c\n", *str, c);
     if (!(ft_isspace(c)))
         {
-            line_to_arg(str, c);
-            all->name_parsed == 0 ? all->name_parsed = 1 : 0;
+            line_to_arg(&(all->arg[all->count]), c);
+            // printf("all->name_parsed main_parser1 %d\n ", all->name_parsed);
+            if (all->name_parsed == 0 || all->name_parsed == 2)
+                all->name_parsed = 1;
+            // printf("all->name_parsed main_parser2 %d\n ", all->name_parsed);
             if (c == '|' && all->pipe == 0)
                 all->pipe = 1;
             if (c == '<' || c == '>')
@@ -263,6 +283,7 @@ void dqotes_parser(t_all *all, char *line,int *i)
 {
     int tmp;
 
+    check_arg(all);
     all->name_parsed == 0 ? all->name_parsed = 1 : 0;
     tmp = *i;
     if (all->arg[all->count] == NULL)
@@ -286,6 +307,7 @@ void sqotes_parser(t_all *all, char *line,int *i)
 {
     int tmp;
 
+    check_arg(all);
     all->name_parsed == 0 ? all->name_parsed = 1 : 0;
     tmp = *i;
     if (all->arg[all->count] == NULL)
@@ -330,21 +352,15 @@ void    init_arg(t_all *all)
     all->name_parsed = 0;
 }
 
-int    check_end(t_all *all, int *i, char c)
+int    check_end(t_all *all, char c)
 {
-    int tmp;
-
-    tmp = *i;
     if (c == ';')
     {
         ft_choice_function(all);
         clear_arg(all);
         init_arg(all);
-        // tmp++;
-        *i = tmp;
         return (1);
     }
-    *i = tmp;
     return (0);
 }
 
@@ -353,8 +369,6 @@ void parser(char *line, t_all *all)
     int i;
 
     all->size = 2; //check_size(line);
-    // arg = ft_calloc(size, sizeof(char));
-    // all->arg = NULL;
     if (!(all->arg = (char **)malloc(all->size * (sizeof(char *)))))
         return;
     i = 0;
@@ -364,41 +378,22 @@ void parser(char *line, t_all *all)
     all->arg[all->count] = ft_strdup("");
     all->arg[all->size - 1] = NULL;
     all->name_parsed = 0;
-    // printf("line: %s %zu\n\n", line, ft_strlen(line));
     while (line[i] != '\0')
     {
-        // write(1,&line[i], 1);
-        //printf("0 line [i] = %c i = %d\n", line[i], i);
-        // check_end(all, &i, line[i]);
         while (ft_isspace(line[i]) /*&& all->sq_open == 0 && all->dq_open == 0*/)
         {
             //printf("0.1 line [i] = %c i = %d line %s\n", line[i], i, line);
             if (all->name_parsed == 1)
-            {
-                all->name_parsed = 0;
-                // //printf("do %s\n ", all->arg[all->count]);
-                all->count++;
-                all->size++;
-                // printf("all->count %d, size %d \n", all->count, all->size);
-                all->arg = ft_realloc(all->arg, all->size);
-                // printf("0.2 line [i] = %c i = %d line = %s len = %zu\n", line[i], i, line, ft_strlen(line));
-                // //printf("posle %s\n ", all->arg[all->count - 1]);
-                // arg[all->count] = malloc(1);
-                // arg[all->count][0] = '\0';
-                all->arg[all->count] = NULL ;//ft_strdup("");
-                //printf("0.22 line [i] = %c i = %d line %s\n", line[i], i, line);
-                all->arg[all->count + 1] = NULL;
-            }
+                all->name_parsed = 2;
             i++;
-            //printf("0.3 line [i] = %c i = %d line %s\n", line[i], i, line);
         }
         if (line[i] == '"')
             dqotes_parser(all, line, &i);
         if (line[i] == 39)
             sqotes_parser(all, line, &i);
         //printf("1 line [i] = %c i = %d\n", line[i], i);
-        if (!ft_isspace(line[i]) && (int)line[i] != 39 && line[i] != '"')
-            main_parser(all, line[i], &(all->arg[all->count]), &i);
+        if (!ft_isspace(line[i]) && (int)line[i] != 39 && line[i] != '"' && line[i] != '\0')
+            main_parser(all, line[i]);
         if (all->var_$ == 1)
             check_var(line, &i, &(all->arg[all->count]), all);
         i++;
@@ -465,7 +460,6 @@ int     main(int argc, char **argv, char **envp)
             if (ret >= 0)
                 parser(line, &all);
             //Ainur function
-            // ft_choice_function(&all);
             if (line)
                 free(line);
     }
