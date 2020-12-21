@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 17:31:53 by ajeanett          #+#    #+#             */
-/*   Updated: 2020/12/21 16:25:17 by ajeanett         ###   ########.fr       */
+/*   Updated: 2020/12/21 21:38:00 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,9 @@ typedef struct		s_all
 {
 	char			*prompt;
 	int				backslash;
+	int				quotes;
+	int				sq;
+	int				dq;
 	int				var_$;
 	int				pipe;
 	int				redir;
