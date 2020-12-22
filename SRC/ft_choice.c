@@ -26,8 +26,14 @@ char	**ft_array_copy(char **array_original, int i)
 	array_copy = (char **)malloc(sizeof(char*) * (k + 1));
 	tmp -= 1;
 	i = -1;
+	//printf("k = %d", k + 1);
 	while(array_original[++tmp] != 0)
+	{
 		array_copy[++i] = ft_strdup(array_original[tmp]);
+		//printf("%d %d %s\n", i, tmp, array_copy[i]);
+	}
+	//printf("i = %d", i + 1);
+	array_copy[i + 1] = 0;
 	return (array_copy);
 }
 

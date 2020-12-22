@@ -18,6 +18,7 @@ void	ft_add_to_env(t_all *all, char *newvalue)
 	char	**array_copy;
 	int		i;
 
+	//printf("YA TUT 0\n");
 	i = 0;
 	while(all->env[i] != 0)
 		i++;
@@ -37,17 +38,32 @@ void	ft_set_value_env(t_all *all)
 	int i;
 	int j;
 	int k;
+	int l;
 
 	i = 0;
 	while (all->arg[++i] != 0)
 	{
+		//printf("YA TUT 1\n");
 		j = -1;
 		k = 0;
+		l = 0;
+		while (all->arg[i][l] != 0 && all->arg[i][l] != '=')
+		{
+			//printf("YA TUT 2 = %c\n", all->arg[i][l]);
+			l++;
+		}
 		while (all->env[++j])
 		{
-			if (ft_strncmp(all->env[j], all->arg[i], ft_strlen(all->arg[i])) == 0)
+			if (ft_strncmp(all->env[j], all->arg[i], l) == 0)
+			{	
+				free(all->env[j]);
+				all->env[j] = ft_strdup(all->arg[i]);
 				k++;
+				//printf("1 k = %d\n", k);
+				break ;
+			}
 		}
+		//printf("2 k = %d\n", k);
 		if (k == 0)
 			ft_add_to_env(all, all->arg[i]);
 	}
@@ -70,6 +86,7 @@ int		ft_export_set(t_all *all)
 		}
 	}
 	ft_set_value_env(all);
+	all->$_res = 0;
 	// s_res
 	// перезаписаться одинаковое
 	return (0);

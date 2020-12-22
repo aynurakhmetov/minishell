@@ -30,5 +30,4 @@ void	ft_s_result(t_all *all)
 		ft_putnbr_fd(i, 1);
 	}
 	ft_putendl_fd(": command not found", 1);
-	// s_res
 }
