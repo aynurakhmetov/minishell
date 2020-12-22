@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
+/*   By: gmarva <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 08:46:44 by gmarva            #+#    #+#             */
-/*   Updated: 2020/12/20 16:07:07 by ajeanett         ###   ########.fr       */
+/*   Updated: 2020/11/27 08:46:46 by gmarva           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void 	ft_sort_env(char **sort_env)
 			}
 		}
 	}
-
 }
 
 void	ft_free_array(char **str)
@@ -56,6 +55,7 @@ int		ft_export(t_all *all)
 	char **sort_env;
 	int i;
 	int j;
+	int k;
 
 	i = -1;
 	sort_env = ft_array_copy(all->env, 0);
@@ -64,16 +64,23 @@ int		ft_export(t_all *all)
 	{
 		ft_putstr_fd("declare -x ", 1);
 		j = -1;
+		k = 0;
 		while (sort_env[i][++j] != 0)
 		{
-			if (sort_env[i][j] == '=')
-				ft_putchar_fd('"', 1);
 			ft_putchar_fd(sort_env[i][j], 1);
+			if (sort_env[i][j] == '=')
+			{
+				ft_putchar_fd('"', 1);
+				k++;
+			}
 		}
-		ft_putendl_fd("\"", 1);
+		if (k > 0)
+			ft_putendl_fd("\"", 1);
 	}
 	ft_free_array(sort_env);
-	// Обработать ошибки
+	// Обработать ошибки, маллоки, память
 	// Сравнить с выводом оригинальным
+	// s_res как работает
+	all->$_res = 0;
 	return (0);
 }

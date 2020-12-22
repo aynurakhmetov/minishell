@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
+/*   By: gmarva <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 07:22:02 by gmarva            #+#    #+#             */
-/*   Updated: 2020/12/20 16:07:09 by ajeanett         ###   ########.fr       */
+/*   Updated: 2020/11/27 07:22:08 by gmarva           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		ft_pwd(t_all *all)
 {
-	char	dir[1000];
+	char	dir[10000];
 	int		i;
 
 	i = 0;
@@ -23,5 +23,6 @@ int		ft_pwd(t_all *all)
 	getcwd(dir, 10000);
 	ft_putendl_fd(dir, 1);
 	// Обработать ошибки
+	// s_res
 	return (0);
 }

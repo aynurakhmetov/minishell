@@ -1,44 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   ft_redir.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmarva <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/27 08:53:46 by gmarva            #+#    #+#             */
-/*   Updated: 2020/11/27 08:53:47 by gmarva           ###   ########.fr       */
+/*   Created: 2020/12/22 11:03:55 by gmarva            #+#    #+#             */
+/*   Updated: 2020/12/22 11:03:56 by gmarva           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_env(t_all *all)
+void	ft_redir(t_all *all)
 {
+	int k;
 	int i;
-	int j;
 
+	k = 0;
 	i = -1;
-	while (all->env[++i] != 0)
+	while (all->arg[++i] != 0)
 	{
-		j = -1;
-		while (all->env[i][++j] != 0)
-		{
-			if (all->env[i][j] == '=')
-			{
-				if (all->env[i][j + 1] != 0)
-				{
-					ft_putendl_fd(all->env[i], 1);
-					continue ;
-				}
-				
-			}
-		}
+		if (ft_strncmp(all->arg[i], ">", 1) == 0)
+			k++;
+		if (ft_strncmp(all->arg[i], "<", 1) == 0)
+			k++;
+		if (ft_strncmp(all->arg[i], ">>", 1) == 0)
+			k++;
 	}
-
-	// Узнать 
-	// Сравнить подробно с оригинальной выдачей b
-	// Как работает с $?
-	all->$_res = 0;
-	return (0);
-	
+	k++;
+	printf("%d\n", k);
 }

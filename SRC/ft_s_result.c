@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_s_result.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
+/*   By: gmarva <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 20:45:07 by gmarva            #+#    #+#             */
-/*   Updated: 2020/12/20 16:07:11 by ajeanett         ###   ########.fr       */
+/*   Updated: 2020/11/28 20:45:09 by gmarva           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,5 @@ void	ft_s_result(t_all *all)
 		ft_putnbr_fd(i, 1);
 	}
 	ft_putendl_fd(": command not found", 1);
+	// s_res
 }

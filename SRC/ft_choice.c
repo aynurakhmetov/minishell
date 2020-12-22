@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_choice.c                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
+/*   By: gmarva <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 07:04:14 by gmarva            #+#    #+#             */
-/*   Updated: 2020/12/20 20:56:39 by ajeanett         ###   ########.fr       */
+/*   Updated: 2020/11/26 07:04:18 by gmarva           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,26 @@ char	**ft_array_copy(char **array_original, int i)
 	return (array_copy);
 }
 
-void	ft_choice_function(t_all *all)
+void	ft_switch_function(t_all *all)
 {
-	// проверить последний аргумент на пустоту
-	// проверка на пайп
-	// проверка на редирект
-	// a->count ++
 	int		result;
+	char	**tmp;
+	int 	k;
 
-	// printf("%d\n", 10);
-	// printf("%d %s\n", 11, all->arg[0]);
-	if (ft_strncmp(all->arg[0], "echo", ft_strlen("echo")) == 0 && ft_strlen("echo") == ft_strlen(all->arg[0]))
+	k = 0;
+	if (all->pipe == 1)
 	{
-		// printf("%f\n", 11.2);
-		ft_echo(all);
-		// printf("%d\n", 12);
+		k++;
+		tmp = all->arg;
+		all->arg = all->newarg;;
 	}
+	// int i = -1;
+	// while (all->arg[++i] != 0)
+	// 	printf("TUT %s\n", all->arg[i]);
+
+	printf("arg[0] = %s\n", all->arg[0]);
+	if (ft_strncmp(all->arg[0], "echo", ft_strlen("echo")) == 0 && ft_strlen("echo") == ft_strlen(all->arg[0]))
+		ft_echo(all);
 	else if (ft_strncmp(all->arg[0], "cd", ft_strlen("cd")) == 0 && ft_strlen("cd") == ft_strlen(all->arg[0]))
 		result = ft_cd(all);
 	else if (ft_strncmp(all->arg[0], "pwd", ft_strlen("pwd")) == 0 && ft_strlen("pwd") == ft_strlen(all->arg[0]))
@@ -65,24 +69,68 @@ void	ft_choice_function(t_all *all)
 		ft_s_result(all);
 	else
 	{
-		//printf("Ya tut\n");
-		int *status = NULL;
+		//printf("Ya tut 2\n");
+		// Разобраться с wait
 		pid_t pid;
-		// printf("%d\n", 11);
+		int *status = NULL;
+		int r = 0;
+
+		
 		if ((pid = fork()) < 0)
 			ft_putendl_fd("fork_error", 1);
 		else if (pid == 0)
 		{
+			if (all->redir == 2)
+			{
+				dup2(all->fd, 0);
+				r++;
+			}
+			if (all->redir == 3)
+			{
+				//open()
+				dup2(all->fd, 0);
+				r++;
+			}
+			if (all->redir == 4)
+			{
+				dup2(all->fd, 1);
+				r++;
+			}
 			ft_execve(all);
-			exit(0);
 		}
 		wait(status);
-		// printf("%d\n", 12);
-		return;
+		// обработка ошибок
 	}
+	if (k > 0)
+	{
+		ft_free_array(all->arg);
+		all->arg = tmp;
+		k = 0;
+	}
+}
+
+void	ft_choice_function(t_all *all)
+{
+	// проверить последний аргумент на пустоту
+	// проверка на пайп
+	// проверка на редирект
+	// a->count ++
+	
+	//printf("pipe flag %d\n", all->pipe);
+	//printf("redir flag %d\n", all->redir);
+	//ft_switch_function(all);
+
+	if ((all->pipe == 1 && all->redir == 0) || (all->pipe == 1 && all->redir == 1))
+		ft_pipe(all);
+	else if (all->pipe == 0 && all->redir == 1)
+		ft_redir(all);
+	else
+		ft_switch_function(all);
+	
 	// Проверить ЭКЗЭКВЕЕ для всех остальных
 	// Возврат кода функции для $?
 	// Еще ддя команд нот фаунд
 	// Принимаю редиректы < > “>>” + чекать флаг редиректов
 	// Флаг пайп, если поднят -> сохранять открытми fd
+	// проверить в гите
 }
