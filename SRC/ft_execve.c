@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 22:05:14 by gmarva            #+#    #+#             */
-/*   Updated: 2020/12/20 16:31:07 by ajeanett         ###   ########.fr       */
+/*   Updated: 2020/12/20 20:40:05 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,5 @@ void	ft_execve(t_all *all)
 	ft_free_array(tmp);
 	if (mem)
 		free(mem);
+	exit(0);
 }
