@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 18:01:16 by ajeanett          #+#    #+#             */
-/*   Updated: 2020/12/21 21:49:48 by ajeanett         ###   ########.fr       */
+/*   Updated: 2020/12/22 18:13:03 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -333,6 +333,46 @@ void	ft_e_red(t_all *all, char *s)
     all->$_res = 258;
 }
 
+int    check_left_redir(t_all *all, char *line, int i)
+{
+    if (line[i] == '<')
+    {
+        while (ft_isspace(line[i + 1]))
+            i++;
+        if (line[i + 1] == '\0')
+        {
+            ft_e_red(all, "newline");
+            return(1);
+        }
+        if (ft_strchr("><;|", line[i + 1]))
+        {
+            ft_e(all, line[i + 2]);
+            return(1);
+        }
+    }
+    return(0);
+}
+
+int    check_right_redir(t_all *all, char *line, int i)
+{
+    if (line[i] == '>')
+    {
+        while (ft_isspace(line[i + 1]))
+            i++;
+        if (line[i + 1] == '\0')
+        {
+            ft_e_red(all, "newline");
+            return(1);
+        }
+        if (ft_strchr("><;|", line[i + 1]))
+        {
+            ft_e(all, line[i + 2]);
+            return(1);
+        }
+    }
+    return(0);
+}
+
 int    check_redir(t_all *all, char *line, int i)
 {
     if (line[i] == '>' && line[i + 1] == '>')
@@ -350,6 +390,10 @@ int    check_redir(t_all *all, char *line, int i)
             return(1);
         }
     }
+    if (check_left_redir(all, line, i))
+        return(1);
+    if (check_right_redir(all, line, i))
+        return(1);
     return(0);
 }
 
