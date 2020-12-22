@@ -50,12 +50,14 @@ typedef struct		s_all
 	int				size;
 	int				$_res;
 	int				fd;
+	char			**newarg;
 }					t_all;
 
 int		get_next_line(int fd, char **line);
 char	*ft_chrjoin(char *s1, const char s2);
 char	**ft_realloc(char **ptr, size_t newsize);
 int	    check_end(t_all *all, char c);
+
 //Ainur func
 char	**ft_array_copy(char **array_original, int i);
 void	ft_free_array(char **str);
@@ -70,5 +72,8 @@ void	ft_exit(t_all *all);
 void	ft_s_result(t_all *all);
 void	ft_execve(t_all *all);
 void	ft_choice_function(t_all *all);
+void    ft_switch_function(t_all *all);
+void    ft_pipe(t_all *all);
+void    ft_redir(t_all *all);
 
 #endif
