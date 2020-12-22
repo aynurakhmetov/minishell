@@ -14,20 +14,9 @@
 
 void	ft_redir(t_all *all)
 {
-	int k;
-	int i;
 
-	k = 0;
-	i = -1;
-	while (all->arg[++i] != 0)
-	{
-		if (ft_strncmp(all->arg[i], ">", 1) == 0)
-			k++;
-		if (ft_strncmp(all->arg[i], "<", 1) == 0)
-			k++;
-		if (ft_strncmp(all->arg[i], ">>", 1) == 0)
-			k++;
-	}
-	k++;
-	printf("%d\n", k);
+	 
+	fd = open(all->arg[3], )
+
+	// O_APPEND для редиректа >>
 }
