@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./minishell.h"
+#include "../minishell.h"
 #include <stdio.h>
 
 void	ft_add_to_env(t_all *all, char *newvalue)
@@ -70,5 +70,7 @@ int		ft_export_set(t_all *all)
 		}
 	}
 	ft_set_value_env(all);
+	// s_res
+	// перезаписаться одинаковое
 	return (0);
 }

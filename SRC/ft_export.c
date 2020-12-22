@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./minishell.h"
+#include "../minishell.h"
 
 void 	ft_sort_env(char **sort_env)
 {
@@ -56,6 +56,7 @@ int		ft_export(t_all *all)
 	char **sort_env;
 	int i;
 	int j;
+	int k;
 
 	i = -1;
 	sort_env = ft_array_copy(all->env, 0);
@@ -64,16 +65,24 @@ int		ft_export(t_all *all)
 	{
 		ft_putstr_fd("declare -x ", 1);
 		j = -1;
+		k = 0;
 		while (sort_env[i][++j] != 0)
 		{
 			if (sort_env[i][j] == '=')
+			{
 				ft_putchar_fd('"', 1);
+				k++;
+			}
 			ft_putchar_fd(sort_env[i][j], 1);
 		}
-		ft_putendl_fd("\"", 1);
+		if (k > 0)
+			ft_putendl_fd("\"", 1);
 	}
 	ft_free_array(sort_env);
 	// Обработать ошибки
 	// Сравнить с выводом оригинальным
+	// s_res
+	// кавчка впереди
+
 	return (0);
 }

@@ -12,7 +12,7 @@
 
 NAME = a.out
 SRCS =	ft_choice.c ft_echo.c ft_cd.c ft_pwd.c ft_export.c ft_env.c ft_unset.c \
-		ft_exit.c ft_s_result.c ft_execve.c ft_export_set.c main.c
+		ft_exit.c ft_s_result.c ft_execve.c ft_export_set.c ft_pipe.c main.c
 	
 OBJECTS = $(SRCS:.c=.o)
 FLAGS = gcc -g -Wall -Wextra -Werror
@@ -20,6 +20,7 @@ FLAGS = gcc -g -Wall -Wextra -Werror
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
+	rm -rf a.out
 	make -C libft/
 	gcc $(OBJECTS) libft/libft.a -o $(NAME) 
 

@@ -3,15 +3,18 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <dirent.h>
-#include "./libft/libft.h"
+#include "./SRC//libft/libft.h"
 
 typedef struct	s_all
 {
 	char	**arg;
+	char	**newarg;
 	char	**env;
 	int		$_res;
-	int		fd;
+	int		pipe;
+	int		redir;
 	int		count;
+
 }				t_all;
 
 
@@ -28,3 +31,5 @@ void	ft_exit(t_all *all);
 void	ft_s_result(t_all *all);
 void	ft_execve(t_all *all);
 void	ft_choice_function(t_all *all);
+void	ft_switch_function(t_all *all);
+void	ft_pipe(t_all *all);

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./minishell.h"
+#include "../minishell.h"
 
 char	**ft_array_copy(char **array_original, int i)
 {
@@ -31,15 +31,24 @@ char	**ft_array_copy(char **array_original, int i)
 	return (array_copy);
 }
 
-void	ft_choice_function(t_all *all)
+void	ft_switch_function(t_all *all)
 {
-	// проверить последний аргумент на пустоту
-	// проверка на пайп
-	// проверка на редирект
-	// a->count ++
 	int		result;
+	char	**tmp;
+	int 	k;
 
-	printf("%d\n", all->count);
+	k = 0;
+	if (all->pipe == 1)
+	{
+		k++;
+		tmp = all->arg;
+		all->arg = all->newarg;;
+	}
+	// int i = -1;
+	// while (all->arg[++i] != 0)
+	// 	printf("TUT %s\n", all->arg[i]);
+
+
 	if (ft_strncmp(all->arg[0], "echo", ft_strlen("echo")) == 0 && ft_strlen("echo") == ft_strlen(all->arg[0]))
 		ft_echo(all);
 	else if (ft_strncmp(all->arg[0], "cd", ft_strlen("cd")) == 0 && ft_strlen("cd") == ft_strlen(all->arg[0]))
@@ -60,16 +69,42 @@ void	ft_choice_function(t_all *all)
 		ft_s_result(all);
 	else
 	{
-		//printf("Ya tut\n");
+		//printf("Ya tut 2\n");
+		// Разобраться с wait
 		pid_t pid;
+		int *status = NULL;
 		if ((pid = fork()) < 0)
 			ft_putendl_fd("fork_error", 1);
 		else if (pid == 0)
 			ft_execve(all);
+		wait(status);
+		// обработка ошибок
 	}
+	if (k > 0)
+	{
+		ft_free_array(all->arg);
+		all->arg = tmp;
+		k = 0;
+	}
+}
+
+void	ft_choice_function(t_all *all)
+{
+	// проверить последний аргумент на пустоту
+	// проверка на пайп
+	// проверка на редирект
+	// a->count ++
+	
+	//printf("pipe flag %d\n", all->pipe);
+	if (all->pipe == 1)
+		ft_pipe(all);
+	else
+		ft_switch_function(all);
+	
 	// Проверить ЭКЗЭКВЕЕ для всех остальных
 	// Возврат кода функции для $?
 	// Еще ддя команд нот фаунд
 	// Принимаю редиректы < > “>>” + чекать флаг редиректов
 	// Флаг пайп, если поднят -> сохранять открытми fd
+	// проверить в гите
 }

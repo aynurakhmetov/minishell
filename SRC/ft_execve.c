@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./minishell.h"
+#include "../minishell.h"
 
 int		ft_get_i_enf(char **ienv)
 {
@@ -31,6 +31,7 @@ void	ft_execve(t_all *all)
 	char	*mem;
 	int		i;
 
+	//printf("Ya tut 5\n");
 	i = ft_get_i_enf(all->env);
 	tmp = ft_split(&all->env[i][5], ':');
 	//printf("%d %s\n", i, tmp[i]);
@@ -42,7 +43,7 @@ void	ft_execve(t_all *all)
 			free(all->arg[0]);
 		all->arg[0] = ft_strjoin(tmp[i], mem);
 		//printf("%d %s\n", i, all->arg[0]);
-		execve(all->arg[0], all->arg, all->env);
+		all->$_res = execve(all->arg[0], all->arg, all->env);
 	}
 	if (all->arg[0])
 			free(all->arg[0]);
@@ -56,4 +57,6 @@ void	ft_execve(t_all *all)
 	ft_free_array(tmp);
 	if (mem)
 		free(mem);
+	exit(0); //exit(0), после execve, происходит ли что-то обработка ошибок
+	// s_res
 }

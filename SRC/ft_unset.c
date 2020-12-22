@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./minishell.h"
+#include "../minishell.h"
 
 int		ft_delete_str(char **str, int j)
 {
@@ -22,7 +22,10 @@ int		ft_delete_str(char **str, int j)
 		if (str[j + 1] != 0)
 			str[j] = str[j + 1];
 		if (tmp)
+		{
 			free(tmp);
+			tmp = NULL;
+		}
 		j++;
 	}
 	if (str[j - 1])
@@ -56,5 +59,8 @@ int		ft_unset(t_all *all)
 		i++;
 	}
 	ft_env(all); // Убрать потом, пока для проверки стоит
+	// s_res
+	// правильно удалять без =
+	// проверить память
 	return (0);
 }
