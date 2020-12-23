@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 17:31:53 by ajeanett          #+#    #+#             */
-/*   Updated: 2020/12/21 21:38:00 by ajeanett         ###   ########.fr       */
+/*   Updated: 2020/12/23 20:43:46 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,33 @@ int		get_next_line(int fd, char **line);
 char	*ft_chrjoin(char *s1, const char s2);
 char	**ft_realloc(char **ptr, size_t newsize);
 int	    check_end(t_all *all, char c);
+void    init_struct(t_all *all);
+void    init_env(t_all *all, char **envp);
+void    init_arg(t_all *all);
+void    clear_arg(t_all *all);
+int		ft_isspace(int c);
+void	ft_free(char **str);
+int		line_to_arg(char **line, char chr);
+void    check_arg(t_all *all);
+char    check_backslash_m(t_all *all, int *i, char c, char *line);
+int     check_parser_var(t_all *all, int *i, char c, char *line);
+void    main_parser(t_all *all, char c, char *line, int *i);
+char    *find_var(char *str, char **envp);
+void    var_to_arg(char *var, t_all *all);
+int		check_var(char *line, int *i, char **arg, t_all *all);
+void    check_backslash(t_all *all, int *i, char c, char next);
+int     check_d_var_result(t_all *all, int *i);
+void	dqotes_parser(t_all *all, char *line,int *i);
+void	sqotes_parser(t_all *all, char *line, int *i);
+void	ft_e(t_all *all, char c);
+void	ft_e_red(t_all *all, char *s);
+int		check_left_redir(t_all *all, char *line, int i);
+int		check_right_redir(t_all *all, char *line, int i);
+int		check_redir(t_all *all, char *line, int i);
+void    quotes_flag(char c, t_all *all);
+int		check_syntax(char *line, t_all *all);
+
+
 
 //Ainur func
 char	**ft_array_copy(char **array_original, int i);
