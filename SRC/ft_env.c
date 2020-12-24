@@ -25,17 +25,13 @@ int	ft_env(t_all *all)
 		{
 			if (all->env[i][j] == '=')
 			{
-				if (all->env[i][j + 1] != 0)
-				{
-					ft_putendl_fd(all->env[i], 1);
-					continue ;
-				}
-				
+				ft_putendl_fd(all->env[i], 1);
+				continue ;			
 			}
 		}
 	}
 
-	// Узнать 
+	// должен показывать b=""
 	// Сравнить подробно с оригинальной выдачей b
 	// Как работает с $?
 	all->$_res = 0;

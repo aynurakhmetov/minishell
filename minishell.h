@@ -51,6 +51,8 @@ typedef struct		s_all
 	int				$_res;
 	int				fd;
 	char			**newarg;
+	int             r_redir;
+	int				l_redir;
 }					t_all;
 
 int		get_next_line(int fd, char **line);

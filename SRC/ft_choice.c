@@ -44,7 +44,9 @@ void	ft_switch_function(t_all *all)
 	int 	k;
 
 	k = 0;
-	if (all->pipe == 1)
+	//if (all->pipe == 1 && all->redir == 1)
+	//	ft_pipe(all);
+	if (all->pipe == 1 || all->redir == 1)
 	{
 		k++;
 		tmp = all->arg;
@@ -52,7 +54,7 @@ void	ft_switch_function(t_all *all)
 	}
 	// int i = -1;
 	// while (all->arg[++i] != 0)
-	// 	printf("TUT %s\n", all->arg[i]);
+	printf("TUT %s\n", all->arg[0]);
 
 	printf("arg[0] = %s\n", all->arg[0]);
 	if (ft_strncmp(all->arg[0], "echo", ft_strlen("echo")) == 0 && ft_strlen("echo") == ft_strlen(all->arg[0]))
@@ -79,31 +81,11 @@ void	ft_switch_function(t_all *all)
 		// Разобраться с wait
 		pid_t pid;
 		int *status = NULL;
-		int r = 0;
-
 		
 		if ((pid = fork()) < 0)
 			ft_putendl_fd("fork_error", 1);
 		else if (pid == 0)
-		{
-			if (all->redir == 2)
-			{
-				dup2(all->fd, 0);
-				r++;
-			}
-			if (all->redir == 3)
-			{
-				//open()
-				dup2(all->fd, 0);
-				r++;
-			}
-			if (all->redir == 4)
-			{
-				dup2(all->fd, 1);
-				r++;
-			}
 			ft_execve(all);
-		}
 		wait(status);
 		// обработка ошибок
 	}
@@ -122,13 +104,13 @@ void	ft_choice_function(t_all *all)
 	// проверка на редирект
 	// a->count ++
 	
-	//printf("pipe flag %d\n", all->pipe);
-	//printf("redir flag %d\n", all->redir);
+	printf("pipe flag %d\n", all->pipe);
+	printf("redir flag %d\n", all->redir);
 	//ft_switch_function(all);
 
-	if ((all->pipe == 1 && all->redir == 0) || (all->pipe == 1 && all->redir == 1))
+	if ((all->pipe == 1 && all->redir == 0))
 		ft_pipe(all);
-	else if (all->pipe == 0 && all->redir == 1)
+	else if ((all->pipe == 0 && all->redir == 1) || (all->pipe == 1 && all->redir == 1))
 		ft_redir(all);
 	else
 		ft_switch_function(all);

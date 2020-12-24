@@ -44,15 +44,18 @@ void	ft_free_array(char **str)
 	int i;
 
 	i = 0;
+	//printf("1\n");
 	while(str && str[i])
 	{
 		free(str[i]);
 		str[i] = NULL;
 		i++;
 	}
+	//printf("2\n");
 	if (str)
 		free(str);
 	str = NULL;
+	//printf("3\n");
 }
 
 int		ft_export(t_all *all)
