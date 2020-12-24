@@ -44,17 +44,18 @@ void	ft_switch_function(t_all *all)
 	int 	k;
 
 	k = 0;
-	//if (all->pipe == 1 && all->redir == 1)
-	//	ft_pipe(all);
+	if (all->pipe == 1 && all->redir == 1)
+		ft_pipe(all);
 	if (all->pipe == 1 || all->redir == 1)
 	{
 		k++;
 		tmp = all->arg;
-		all->arg = all->newarg;;
+		all->arg = all->newarg;
+		//printf("hey %s\n", all->arg[0]);
 	}
 	// int i = -1;
 	// while (all->arg[++i] != 0)
-	printf("TUT %s\n", all->arg[0]);
+	//printf("TUT %s\n", all->arg[0]);
 
 	printf("arg[0] = %s\n", all->arg[0]);
 	if (ft_strncmp(all->arg[0], "echo", ft_strlen("echo")) == 0 && ft_strlen("echo") == ft_strlen(all->arg[0]))
@@ -91,7 +92,8 @@ void	ft_switch_function(t_all *all)
 	}
 	if (k > 0)
 	{
-		ft_free_array(all->arg);
+		//printf("choise k > 0 1\n");
+		//ft_free_array(all->arg);
 		all->arg = tmp;
 		k = 0;
 	}
@@ -109,7 +111,10 @@ void	ft_choice_function(t_all *all)
 	//ft_switch_function(all);
 
 	if ((all->pipe == 1 && all->redir == 0))
+	{
+		printf("0 Ya tut\n");
 		ft_pipe(all);
+	}
 	else if ((all->pipe == 0 && all->redir == 1) || (all->pipe == 1 && all->redir == 1))
 		ft_redir(all);
 	else

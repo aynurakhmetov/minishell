@@ -47,8 +47,12 @@ void	ft_free_array(char **str)
 	//printf("1\n");
 	while(str && str[i])
 	{
-		free(str[i]);
-		str[i] = NULL;
+		//printf("11 %s\n", str[i]);
+		if (str[i])
+		{
+			free(str[i]);
+			str[i] = NULL;
+		}
 		i++;
 	}
 	//printf("2\n");

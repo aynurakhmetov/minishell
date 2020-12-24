@@ -69,13 +69,15 @@ void	ft_redir(t_all *all)
 	int i;
 	int	k;
 	int fd;
-	int fdtmp;
+	int fdtmp[2];
 	int *redir;
 	int j;
 
 	i = -1;
 	k = 0;
-	//printf("ta tut 1\n");
+	//fdtmp[0] = -1;
+	//fdtmp[1] = -1;
+	//printf("fdtmp %d %d\n", fdtmp[0], fdtmp[1]);
 	while (all->arg[++i])
 	{
 		if ((ft_strncmp(all->arg[i], ">", 1) == 0 && ft_strlen(all->arg[i]) == 1) || (ft_strncmp(all->arg[i], ">>", 2) == 0 && ft_strlen(all->arg[i]) == 2) || (ft_strncmp(all->arg[i], "<", 1) == 0 && ft_strlen(all->arg[i]) == 1))
@@ -116,20 +118,20 @@ void	ft_redir(t_all *all)
 	i = 0;
 	while (i < k)
 	{
-		
+		//printf("1 i = %d\n", i);
 		ft_make_newarg2(all, i + 2);
-		
+		//printf("2 i = %d\n", i);
 		//int j = -1;
 		// while (all->newarg[++j] != 0)
 		//printf("2 %d %d %s\n", i, j, all->newarg[j]);
-		//printf("%d\n", 1);
+		
 		if (redir[i] == 1)
 		{
 			//printf("2 i = %d, redird = %d, newarg[0] =%s\n", i , redir[i], all->newarg[0]);
 			fd = open(all->newarg[0], O_RDWR);
 			if (fd == -1)
 				fd = open(all->newarg[0], O_RDWR | O_CREAT, 0777);
-			fdtmp = dup(1);
+			fdtmp[0] = dup(1);
 			dup2(fd, 1);
 		}
 		//printf("%d\n", 2);
@@ -138,15 +140,22 @@ void	ft_redir(t_all *all)
 			fd = open(all->newarg[0], O_RDWR | O_APPEND);
 			if (fd == -1)
 				fd = open(all->newarg[0], O_APPEND | O_RDWR | O_CREAT, 0777);
-			fdtmp = dup(1);
+			fdtmp[0] = dup(1);
 			dup2(fd, 1);
 		}
 		if (redir[i] == 3)
 		{
 			fd = open(all->newarg[0], O_RDWR | O_APPEND);
 			if (fd == -1)
-				fd = open(all->newarg[0], O_APPEND | O_RDWR | O_CREAT, 0777);
-			fdtmp = dup(0);
+			{
+				ft_putstr_fd("bash:", 1);
+				ft_putstr_fd(all->newarg[0], 1);
+				ft_putendl_fd(" No such file or directory", 1);
+				// все закрыть
+				break ;
+
+			}
+			fdtmp[1] = dup(0);
 			dup2(fd, 0);
 		}
 
@@ -172,26 +181,29 @@ void	ft_redir(t_all *all)
 			//while (all->newarg[++j] != 0)
 			//	write(1, all->newarg[j], ft_strlen(all->newarg[j]));
 			//printf("31 k = %d, redird = %d\n", i , redir[i]);
+			//printf("rredir = %d\n", all->r_redir);
 			all->r_redir--;
-			dup2(fdtmp, 1);
+			dup2(fdtmp[0], 1);
 			close(fd);
-			close(fdtmp);
+			close(fdtmp[0]);
 		}
 		if (redir[i] == 3 && all->l_redir > 1)
 		{
+			//printf("lredir = %d\n", all->l_redir);
 			all->l_redir--;
-			dup2(fdtmp, 0);
+			dup2(fdtmp[1], 0);
 			close(fd);
-			close(fdtmp);
+			close(fdtmp[1]);
 		}
 		//printf("1 YA VNIZY fd VERNULSYA\n");
 		i++;
 	}
-	//printf("2 YA VNIZY fd VERNULSYA\n");
+	printf("2 YA VNIZY fd VERNULSYA\n");
 	ft_make_newarg2(all, 0 + 1);
 	// while (all->newarg[++j] != 0)
 	// 	printf("3 %d %d %s\n", i, j, all->newarg[j]);
-	ft_switch_function(all);
+	if (all->pipe == 0)
+		ft_switch_function(all);
 	i = 0;
 	while (i < k)
 	{
@@ -204,6 +216,15 @@ void	ft_redir(t_all *all)
 			while (all->newarg[++j] != 0)
 				write(1, all->newarg[j], ft_strlen(all->newarg[j]));
 		}
+		if (redir[i] == 3 )
+		{
+			//printf("30 k = %d, redird = %d\n", i , redir[i]);
+			ft_make_newarg2(all, i + 2);
+			//printf("300 k = %d, redird = %d\n", i , redir[i]);
+			j = 0;
+			while (all->newarg[++j] != 0)
+				ft_switch_function(all);
+		}
 		i++;
 	}
 	if (all->r_redir > 0)
@@ -215,17 +236,18 @@ void	ft_redir(t_all *all)
 		//while (all->newarg[++j] != 0)
 		//	write(1, all->newarg[j], ft_strlen(all->newarg[j]));
 		//printf("31 k = %d, redird = %d\n", i , redir[i]);
-		dup2(fdtmp, 1);
+		dup2(fdtmp[0], 1);
 		close(fd);
-		close(fdtmp);
+		close(fdtmp[0]);
 	}
 	if (all->l_redir > 0)
 	{
-		dup2(fdtmp, 0);
+		dup2(fdtmp[1], 0);
 		close(fd);
-		close(fdtmp);
+		close(fdtmp[1]);
 	}
-
-	
+	// if (all->newarg && all->newarg[0])
+	// 	ft_free_array(all->newarg);
+	// флаг редир на 0
 	// O_APPEND для редиректа >>
 }
