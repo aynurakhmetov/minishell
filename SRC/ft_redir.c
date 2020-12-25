@@ -202,7 +202,9 @@ void	ft_redir(t_all *all)
 	ft_make_newarg2(all, 0 + 1);
 	// while (all->newarg[++j] != 0)
 	// 	printf("3 %d %d %s\n", i, j, all->newarg[j]);
-	if (all->pipe == 0)
+	if (all->pipe == 1)
+		ft_pipe(all);
+	else
 		ft_switch_function(all);
 	i = 0;
 	while (i < k)

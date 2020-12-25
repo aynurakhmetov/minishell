@@ -15,20 +15,28 @@
 void	ft_get_newarg(t_all *all, char **str, int i, int k)
 {
 	int j;
+	int len;
 	
 	if (all->newarg && all->newarg[0])
 		ft_free_array(all->newarg);
-	j = (i - (k - 1)); 
+	j = (i - (k - 1));
+	len = k;
 	all->newarg = (char **)malloc(sizeof(char *) * (k + 1));
 	k = 0;
 	while (j < i)
 	{
+		if ((ft_strncmp(str[j], ">", 1) == 0 && ft_strlen(str[j]) == 1) || (ft_strncmp(str[j], ">>", 2) == 0 && ft_strlen(str[j]) == 2) || (ft_strncmp(str[j], "<", 1) == 0 && ft_strlen(str[j]) == 1))
+			break;
 		all->newarg[k] = ft_strdup(str[j]);
 		j++;
 		k++;
 	}
 	//printf("k = %d\n", k);
-	all->newarg[k] = 0;
+	// while (k < len)
+	// {
+		all->newarg[k] = 0;
+	// 	k++;
+	// }
 }
 
 void	ft_make_newarg(t_all *all, int pipenum)

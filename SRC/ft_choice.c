@@ -44,8 +44,11 @@ void	ft_switch_function(t_all *all)
 	int 	k;
 
 	k = 0;
-	if (all->pipe == 1 && all->redir == 1)
-		ft_pipe(all);
+	// if (all->pipe == 1 && all->redir == 1)
+	// {
+	// 	ft_pipe(all);
+	// 	return;
+	// }
 	if (all->pipe == 1 || all->redir == 1)
 	{
 		k++;
