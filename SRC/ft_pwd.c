@@ -24,6 +24,6 @@ int		ft_pwd(t_all *all)
 	ft_putendl_fd(dir, 1);
 	// Обработать ошибки
 	// s_res
-	all->$_res = 0;
+	all->res = 0;
 	return (0);
 }

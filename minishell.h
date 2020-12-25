@@ -48,7 +48,7 @@ typedef struct		s_all
 	char			**arg;
 	int				count;
 	int				size;
-	int				$_res;
+	int				res;
 	int				fd;
 	char			**newarg;
 	int             r_redir;
@@ -71,7 +71,6 @@ int		ft_export_set(t_all *all);
 int		ft_env(t_all *all);
 int		ft_unset(t_all *all);
 void	ft_exit(t_all *all);
-void	ft_s_result(t_all *all);
 void	ft_execve(t_all *all);
 void	ft_choice_function(t_all *all);
 void    ft_switch_function(t_all *all);

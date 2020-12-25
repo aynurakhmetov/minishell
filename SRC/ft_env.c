@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-int	ft_env(t_all *all)
+void	ft_env_write(t_all *all)
 {
 	int i;
 	int j;
@@ -26,15 +26,28 @@ int	ft_env(t_all *all)
 			if (all->env[i][j] == '=')
 			{
 				ft_putendl_fd(all->env[i], 1);
-				continue ;			
+				continue ;
 			}
 		}
 	}
+	all->res = 0;
+}
 
-	// должен показывать b=""
-	// Сравнить подробно с оригинальной выдачей b
-	// Как работает с $?
-	all->$_res = 0;
-	return (0);
-	
+int		ft_env(t_all *all)
+{
+	int i;
+
+	i = 0;
+	while (all->arg[i] != 0)
+		i++;
+	if (i == 1)
+		ft_env_write(all);
+	else
+	{
+		ft_putstr_fd("env: ", 1);
+		ft_putstr_fd(all->arg[1], 1);
+		ft_putendl_fd(": No such file or directory", 1);
+		all->res = 127;
+	}
+	return (all->res);
 }

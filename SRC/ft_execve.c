@@ -18,24 +18,18 @@ int		ft_get_i_enf(char **ienv)
 
 	i = -1;
 	while (ienv[++i])
-		if (ft_strncmp(ienv[i],  "PATH", ft_strlen("PATH")) == 0)
+	{
+		if (ft_strncmp(ienv[i], "PATH", ft_strlen("PATH")) == 0)
 			return (i);
+	}
 	return (-1);
 }
 
-// Добавить ФОРК дочерний процесс
-void	ft_execve(t_all *all)
+void	ft_make_exexve(t_all *all, char **tmp, char *mem, int i)
 {
-	char	**tmp = NULL;
-	char	*mem = NULL;
-	int		i;
-
-	//printf("Ya tut 5\n");
-	i = ft_get_i_enf(all->env);
 	if (i != -1)
 	{
 		tmp = ft_split(&all->env[i][5], ':');
-		//printf("%d %s\n", i, tmp[i]);
 		mem = ft_strjoin("/", all->arg[0]);
 		i = -1;
 		while (tmp[++i] != 0)
@@ -43,11 +37,10 @@ void	ft_execve(t_all *all)
 			if (all->arg[0])
 				free(all->arg[0]);
 			all->arg[0] = ft_strjoin(tmp[i], mem);
-			//printf("%d %s\n", i, all->arg[0]);
 			execve(all->arg[0], all->arg, all->env);
 		}
 		if (all->arg[0])
-				free(all->arg[0]);
+			free(all->arg[0]);
 		all->arg[0] = &mem[1];
 		ft_free_array(tmp);
 		if (mem)
@@ -55,15 +48,25 @@ void	ft_execve(t_all *all)
 	}
 	else
 		execve(all->arg[0], all->arg, all->env);
-	all->$_res = 0;
+}
+
+void	ft_execve(t_all *all)
+{
+	char	**tmp;
+	char	*mem;
+	int		i;
+
+	tmp = NULL;
+	mem = NULL;
+	i = ft_get_i_enf(all->env);
+	all->res = 0;
+	ft_make_exexve(all, tmp, mem, i);
 	if (execve(all->arg[0], all->arg, all->env) == -1)
 	{
 		ft_putstr_fd("bash: ", 1);
 		ft_putstr_fd(all->arg[0], 1);
 		ft_putendl_fd(": command not found", 1);
-		all->$_res = 127;
+		all->res = 127;
 	}
 	exit(0);
-	//exit(0), после execve, происходит ли что-то обработка ошибок
-	// s_res
 }

@@ -12,24 +12,18 @@
 
 #include "../minishell.h"
 
-int ft_echo(t_all *all)
+int	ft_echo_write(t_all *all, int i, int k, int m)
 {
-	int i;
-	int k;
 	int j;
-	int m;
 
-	i = 0;
-	k = 0;
-	m = 0;
-	while(all->arg[++i])
+	while (all->arg[++i])
 	{
-		if (ft_strncmp(all->arg[i],  "-n", ft_strlen("-n")) == 0
-		&& ft_strncmp(all->arg[i - k - 1],  "echo", ft_strlen("echo")) == 0)
+		if (ft_strncmp(all->arg[i], "-n", ft_strlen("-n")) == 0
+		&& ft_strncmp(all->arg[i - k - 1], "echo", ft_strlen("echo")) == 0)
 		{
 			j = 0;
 			m = 0;
-			while(all->arg[i][++j])
+			while (all->arg[i][++j])
 			{
 				if (all->arg[i][j] != 'n')
 					m++;
@@ -44,10 +38,21 @@ int ft_echo(t_all *all)
 		if (all->arg[i + 1] != 0)
 			ft_putchar_fd(' ', 1);
 	}
+	return (k);
+}
+
+int	ft_echo(t_all *all)
+{
+	int i;
+	int k;
+	int m;
+
+	i = 0;
+	k = 0;
+	m = 0;
+	k = ft_echo_write(all, i, k, m);
 	if (k == 0)
 		ft_putchar_fd('\n', 1);
-	
-	// Как работает с $?
-	all->$_res = 0;
-	return (0);
+	all->res = 0;
+	return (all->res);
 }

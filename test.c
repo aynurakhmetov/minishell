@@ -145,7 +145,7 @@ int     check_parser_var(t_all *all, int *i, char c, char *line)
     if (c == '$' && all->backslash == 0 && line[tmp + 1] == '?')
     {
         arg = all->arg[all->count];
-        var = ft_itoa(all->$_res);
+        var = ft_itoa(all->res);
         all->arg[all->count] = ft_strjoin(all->arg[all->count], var);
         all->var_$ = 0;
         if (arg)
@@ -329,7 +329,7 @@ int     check_d_var_result(t_all *all, int *i)
     char *tmp;
 
     tmp = all->arg[all->count];
-    var = ft_itoa(all->$_res);
+    var = ft_itoa(all->res);
     all->arg[all->count] = ft_strjoin(all->arg[all->count], var);
     all->var_$ = 0;
     if (tmp)
@@ -431,13 +431,13 @@ int    check_end(t_all *all, char c)
 void	ft_e(t_all *all, char c)
 {
 	ft_putendl_fd(ft_chrjoin(ft_chrjoin("bash: syntax error near unexpected token `", c), 39), 2);
-    all->$_res = 258;
+    all->res = 258;
 }
 
 void	ft_e_red(t_all *all, char *s)
 {
 	ft_putendl_fd(ft_chrjoin(ft_strjoin("bash: syntax error near unexpected token `", s), 39), 2);
-    all->$_res = 258;
+    all->res = 258;
 }
 
 int    check_left_redir(t_all *all, char *line, int i)
@@ -613,7 +613,7 @@ int     main(int argc, char **argv, char **envp)
     init_struct(&all);
     init_env(&all, envp);
     // int i = 0;
-    all.$_res = 0;
+    all.res = 0;
     if (argc > 1 && argv[1])
     {
         ft_putendl_fd("Error.\nToo many arguments", 2);

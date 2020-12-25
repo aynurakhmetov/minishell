@@ -12,7 +12,7 @@
 
 NAME = minishell
 SRCS =	test.c get_next_line.c get_next_line_utils.c SRC/ft_choice.c SRC/ft_echo.c SRC/ft_cd.c SRC/ft_pwd.c SRC/ft_export.c SRC/ft_env.c SRC/ft_unset.c \
-		SRC/ft_exit.c SRC/ft_s_result.c SRC/ft_execve.c SRC/ft_export_set.c SRC/ft_pipe.c SRC/ft_redir.c
+		SRC/ft_exit.c SRC/ft_execve.c SRC/ft_export_set.c SRC/ft_pipe.c SRC/ft_redir.c
 	
 OBJECTS = $(SRCS:.c=.o)
 FLAGS = gcc -Wall -Wextra -Werror
