@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
+/*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 00:40:10 by gmarva            #+#    #+#             */
-/*   Updated: 2020/12/20 19:47:56 by ajeanett         ###   ########.fr       */
+/*   Updated: 2020/12/25 16:17:29 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,17 +87,12 @@ char	*ft_newmem(char *src)
 
 int		get_next_line(int fd, char **line)
 {
-	char		buf[BUFFER_SIZE + 1];
-	int			bytes;
+	char	buf[BUFFER_SIZE + 1];
+	int		bytes;
 	char	*mem;
-	mem = NULL;
-	// char	*tmp;
 
-	bytes = 1;
 	if (fd < 0 || !line || BUFFER_SIZE <= 0)
 		return (-1);
-	if (mem)
-		free(mem);
 	mem = ft_calloc(1, 1);
 	while (!(ft_strchr(mem, '\n')) && (bytes != 0) && mem)
 	{
@@ -106,20 +101,11 @@ int		get_next_line(int fd, char **line)
 		if (bytes == -1)
 			return (-1);
 		buf[bytes] = '\0';
-		// tmp = mem;
 		mem = ft_strjoin2(mem, buf);
-		// free(tmp);
 	}
 	if (!(*line = ft_newline(mem)) || !mem)
 		return (-1);
-	if ((mem = ft_endtest(mem)) != 0)
-		if ((mem = ft_newmem(mem)) == 0)
-			return (-1);
 	if (mem)
-	{
-		free(mem);
-		mem = NULL;
-	}
+		ft_free(&mem);
 	return (bytes == 0 ? 0 : 1);
 }
-//облегчить ГНЛ

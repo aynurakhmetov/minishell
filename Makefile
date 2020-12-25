@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+         #
+#    By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/09 15:15:25 by ajeanett          #+#    #+#              #
-#    Updated: 2020/12/23 20:44:03 by ajeanett         ###   ########.fr        #
+#    Updated: 2020/12/24 19:12:32 by ajeanett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ all: $(NAME)
 
 $(NAME): $(OBJECTS)
 	make -C libft/
-	gcc -g $? -o $(NAME) libft/libft.a
+	gcc $(OBJECTS) -o $(NAME) libft/libft.a
 
 %.o: %.c
 	$(FLAGS) -c $< -o $@
