@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_s_result.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmarva <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 20:45:07 by gmarva            #+#    #+#             */
-/*   Updated: 2020/11/28 20:45:09 by gmarva           ###   ########.fr       */
+/*   Updated: 2020/12/24 20:40:42 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	ft_s_result(t_all *all)
 	while (all->arg[i] != 0)
 		i++;
 	ft_putstr_fd("bash: ", 1);
-	if (all->$_res)
-		ft_putnbr_fd(all->$_res, 1);
+	if (all->res)
+		ft_putnbr_fd(all->res, 1);
 	else
 	{
 		if (i > 1)

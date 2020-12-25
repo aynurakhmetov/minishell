@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmarva <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 08:46:44 by gmarva            #+#    #+#             */
-/*   Updated: 2020/11/27 08:46:46 by gmarva           ###   ########.fr       */
+/*   Updated: 2020/12/24 20:40:28 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,18 @@ void	ft_free_array(char **str)
 	int i;
 
 	i = 0;
+	//printf("1\n");
 	while(str && str[i])
 	{
 		free(str[i]);
 		str[i] = NULL;
 		i++;
 	}
+	//printf("2\n");
 	if (str)
 		free(str);
 	str = NULL;
+	//printf("3\n");
 }
 
 int		ft_export(t_all *all)
@@ -94,6 +97,6 @@ int		ft_export(t_all *all)
 	// Обработать ошибки, маллоки, память
 	// Сравнить с выводом оригинальным
 	// s_res как работает
-	all->$_res = 0;
+	all->res = 0;
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execve.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmarva <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 22:05:14 by gmarva            #+#    #+#             */
-/*   Updated: 2020/11/28 22:05:16 by gmarva           ###   ########.fr       */
+/*   Updated: 2020/12/24 20:40:13 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,13 @@ void	ft_execve(t_all *all)
 	}
 	else
 		execve(all->arg[0], all->arg, all->env);
-	all->$_res = 0;
+	all->res = 0;
 	if (execve(all->arg[0], all->arg, all->env) == -1)
 	{
 		ft_putstr_fd("bash: ", 1);
 		ft_putstr_fd(all->arg[0], 1);
 		ft_putendl_fd(": command not found", 1);
-		all->$_res = 127;
+		all->res = 127;
 	}
 	exit(0);
 	//exit(0), после execve, происходит ли что-то обработка ошибок

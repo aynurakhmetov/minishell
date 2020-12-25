@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_set.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmarva <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/18 16:34:59 by gmarva            #+#    #+#             */
-/*   Updated: 2020/12/18 16:35:00 by gmarva           ###   ########.fr       */
+/*   Updated: 2020/12/24 20:40:25 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,12 @@ int		ft_export_set(t_all *all)
 			ft_putstr_fd("bash: export: `", 1);
 			ft_putstr_fd(all->arg[i], 1);
 			ft_putendl_fd("': not a valid identifier", 1);
-			all->$_res = 1;
+			all->res = 1;
 			return (1);
 		}
 	}
 	ft_set_value_env(all);
-	all->$_res = 0;
+	all->res = 0;
 	// s_res
 	// перезаписаться одинаковое
 	return (0);

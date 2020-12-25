@@ -16,7 +16,7 @@ void	ft_get_newarg(t_all *all, char **str, int i, int k)
 {
 	int j;
 	
-	if (all->newarg)
+	if (all->newarg && all->newarg[0])
 		ft_free_array(all->newarg);
 	j = (i - (k - 1)); 
 	all->newarg = (char **)malloc(sizeof(char *) * (k + 1));
@@ -43,7 +43,7 @@ void	ft_make_newarg(t_all *all, int pipenum)
 	while(all->arg[++i] != 0)
 	{
 		k++;
-		if (ft_strncmp(all->arg[i], "|", 1) == 0 || ft_strncmp(all->arg[i], ">", 1) == 0)
+		if (ft_strncmp(all->arg[i], "|", 1) == 0)
 		{
 			l++;
 			if (l == pipenum)
@@ -51,7 +51,7 @@ void	ft_make_newarg(t_all *all, int pipenum)
 			k = 0;
 		}
 	}
-	if (k + 2 == pipenum)
+	if (l + 1 == pipenum)
 		ft_get_newarg(all, all->arg, i, k + 1);
 	//ft_free_array(all->arg);
 	//all->arg = all->newarg;

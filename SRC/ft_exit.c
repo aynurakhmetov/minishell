@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmarva <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 10:29:30 by gmarva            #+#    #+#             */
-/*   Updated: 2020/11/27 10:29:32 by gmarva           ###   ########.fr       */
+/*   Updated: 2020/12/24 20:40:19 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	ft_exit(t_all *all)
 		else if (j == ft_strlen(all->arg[1]) && i > 2)
 		{
 			ft_putendl_fd("bash: exit: too many arguments", 1);
-			all->$_res = 1;
+			all->res = 1;
 		}
 	}
 	if (i == 1)
