@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 13:18:38 by gmarva            #+#    #+#             */
-/*   Updated: 2020/12/20 19:44:44 by ajeanett         ###   ########.fr       */
+/*   Updated: 2020/12/25 10:20:43 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,7 @@ char	*ft_strdup(const char *src)
 		return (NULL);
 	while (src[m] != '\0')
 		m++;
-	//printf("0 strdup %s\n", src);
 	dest = (char*)malloc(m + 1);
-	//printf("1 strdup %s\n", dest);
 	if (!dest)
 		return (NULL);
 	while (src[index] != '\0')
@@ -75,29 +73,8 @@ char	*ft_strdup(const char *src)
 		index++;
 	}
 	dest[index] = '\0';
-	// printf("3 strdup %s\n", dest);
-	//printf("4 strdup %s\n", dest);
 	return (dest);
 }
-
-// char	*ft_strdup(const char *str)
-// {
-// 	size_t	len;
-// 	size_t	j;
-// 	char	*dup;
-
-// 	j = 0;
-// 	len = ft_strlen(str);
-// 	if (!(dup = (char *)malloc((len + 1) * sizeof(char))))
-// 		return (0);
-// 	while (j < len)
-// 	{
-// 		dup[j] = str[j];
-// 		j++;
-// 	}
-// 	dup[j] = '\0';
-// 	return (dup);
-// }
 
 char	*ft_strjoin2(char const *s1, char const *s2)
 {
