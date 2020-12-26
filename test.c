@@ -72,8 +72,6 @@ int		main(int argc, char **argv, char **envp)
 		ret = get_next_line(0, &line);
 		if (ret >= 0)
 			parser(line, &all);
-		if (signal(SIGINT, ft_react) == (void(*)())-1)
-			continue ;
 		if (line)
 			free(line);
 	}

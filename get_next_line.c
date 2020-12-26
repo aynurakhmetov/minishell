@@ -95,6 +95,7 @@ int		get_next_line(int fd, char **line)
 
 	k = 0;
 	if (fd < 0 || !line || BUFFER_SIZE <= 0)
+	
 		return (-1);
 	mem = ft_calloc(1, 1);
 	while (!(ft_strchr(mem, '\n')) && mem)
@@ -111,6 +112,7 @@ int		get_next_line(int fd, char **line)
 			else
 				continue ;
 		}
+		signal(SIGINT, ft_react);
 		k++;
 		if (bytes == -1)
 			return (-1);

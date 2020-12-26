@@ -12,9 +12,8 @@
 
 #include "../minishell.h"
 
-
-void	ft_react()
+void	ft_react(int param)
 {
-	printf("Ya tut\n");
-	signal(SIGINT, ft_react);
+	printf("Ya tut");
+	param++;
 }
