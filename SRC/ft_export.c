@@ -70,7 +70,8 @@ void	ft_write_export(char **sort_env)
 			ft_putchar_fd(sort_env[i][j], 1);
 			if (sort_env[i][j] == '=')
 			{
-				ft_putchar_fd('"', 1);
+				if (k == 0)
+					ft_putchar_fd('"', 1);
 				k++;
 			}
 		}
