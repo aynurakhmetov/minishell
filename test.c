@@ -6,13 +6,23 @@
 /*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 18:01:16 by ajeanett          #+#    #+#             */
-/*   Updated: 2020/12/25 10:14:20 by ajeanett         ###   ########.fr       */
+/*   Updated: 2020/12/26 18:34:02 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	space_skip(t_all *all, int *i)
+static void	handle_sigint(int signo)
+{
+	if (signo == SIGINT)
+	{
+		write(1, "\b\b  \b\b", 6);
+		ft_putstr_fd("\n", 1);
+		write(1, "ajeanett_gmarva ", 16);
+	}
+}
+
+void		space_skip(t_all *all, int *i)
 {
 	int	tmp;
 
@@ -23,7 +33,7 @@ void	space_skip(t_all *all, int *i)
 	*i = tmp;
 }
 
-void	parser(char *line, t_all *all)
+void		parser(char *line, t_all *all)
 {
 	int	i;
 
@@ -50,7 +60,7 @@ void	parser(char *line, t_all *all)
 	clear_arg(all);
 }
 
-int		main(int argc, char **argv, char **envp)
+int			main(int argc, char **argv, char **envp)
 {
 	t_all	all;
 	char	*line;
@@ -64,6 +74,7 @@ int		main(int argc, char **argv, char **envp)
 		ft_putendl_fd("Error.\nToo many arguments", 2);
 		return (0);
 	}
+	signal(SIGINT, handle_sigint);
 	while (1)
 	{
 		write(1, all.prompt, ft_strlen(all.prompt));
