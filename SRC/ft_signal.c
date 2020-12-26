@@ -1,27 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_pwd.c                                           :+:      :+:    :+:   */
+/*   ft_signal.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gmarva <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/27 07:22:02 by gmarva            #+#    #+#             */
-/*   Updated: 2020/11/27 07:22:08 by gmarva           ###   ########.fr       */
+/*   Created: 2020/12/26 16:22:24 by gmarva            #+#    #+#             */
+/*   Updated: 2020/12/26 16:22:27 by gmarva           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int		ft_pwd(t_all *all)
-{
-	char	dir[10000];
-	int		i;
 
-	i = 0;
-	if (all->arg[0] != 0)
-		i++;
-	getcwd(dir, 10000);
-	ft_putendl_fd(dir, 1);
-	all->res = 0;
-	return (0);
+void	ft_react()
+{
+	printf("Ya tut\n");
+	signal(SIGINT, ft_react);
 }

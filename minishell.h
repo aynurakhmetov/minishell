@@ -25,6 +25,7 @@
 # include <sys/types.h>
 # include <dirent.h>
 # include <unistd.h>
+# include <sys/wait.h>
 
 # include "get_next_line.h"
 
@@ -54,6 +55,10 @@ typedef struct		s_all
 	char			**newarg;
 	int				l_redir;
 	int				r_redir;
+	int				fdtmp_1;
+	int				fdtmp_0;
+	pid_t			*pid;
+	int				fdtmp[2];
 }					t_all;
 
 int					get_next_line(int fd, char **line);
@@ -101,5 +106,11 @@ void				ft_choice_function(t_all *all);
 void				ft_switch_function(t_all *all);
 void				ft_pipe(t_all *all);
 void				ft_redir(t_all *all);
+void				ft_get_newarg2(t_all *all, char **str, int i, int k);
+void				ft_make_newarg2(t_all *all, int pipenum);
+int					ft_get_number_of_redir(t_all *all);
+void				ft_get_each_redir(t_all *all, int *redir);
+void				ft_close_fd(t_all *all);
+void				ft_react();
 
 #endif

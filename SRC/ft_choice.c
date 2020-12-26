@@ -102,6 +102,9 @@ void	ft_switch_function(t_all *all)
 
 void	ft_choice_function(t_all *all)
 {
+	all->newarg = (char **)malloc(sizeof(char*) * 2);
+	all->newarg[0] = ft_strdup("");
+	all->newarg[1] = 0;
 	if ((all->pipe == 1 && all->redir == 0))
 		ft_pipe(all);
 	else if ((all->pipe == 0 && all->redir == 1)

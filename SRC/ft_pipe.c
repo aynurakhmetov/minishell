@@ -16,7 +16,7 @@ void	ft_get_newarg(t_all *all, char **str, int i, int k)
 {
 	int j;
 	int len;
-	
+
 	if (all->newarg && all->newarg[0])
 		ft_free_array(all->newarg);
 	j = (i - (k - 1));
@@ -25,18 +25,15 @@ void	ft_get_newarg(t_all *all, char **str, int i, int k)
 	k = 0;
 	while (j < i)
 	{
-		if ((ft_strncmp(str[j], ">", 1) == 0 && ft_strlen(str[j]) == 1) || (ft_strncmp(str[j], ">>", 2) == 0 && ft_strlen(str[j]) == 2) || (ft_strncmp(str[j], "<", 1) == 0 && ft_strlen(str[j]) == 1))
-			break;
+		if ((ft_strncmp(str[j], ">", 1) == 0 && ft_strlen(str[j]) == 1)
+		|| (ft_strncmp(str[j], ">>", 2) == 0 && ft_strlen(str[j]) == 2)
+		|| (ft_strncmp(str[j], "<", 1) == 0 && ft_strlen(str[j]) == 1))
+			break ;
 		all->newarg[k] = ft_strdup(str[j]);
 		j++;
 		k++;
 	}
-	//printf("k = %d\n", k);
-	// while (k < len)
-	// {
-		all->newarg[k] = 0;
-	// 	k++;
-	// }
+	all->newarg[k] = 0;
 }
 
 void	ft_make_newarg(t_all *all, int pipenum)
@@ -48,7 +45,7 @@ void	ft_make_newarg(t_all *all, int pipenum)
 	i = -1;
 	k = 0;
 	l = 0;
-	while(all->arg[++i] != 0)
+	while (all->arg[++i] != 0)
 	{
 		k++;
 		if (ft_strncmp(all->arg[i], "|", 1) == 0)
@@ -61,20 +58,61 @@ void	ft_make_newarg(t_all *all, int pipenum)
 	}
 	if (l + 1 == pipenum)
 		ft_get_newarg(all, all->arg, i, k + 1);
-	//ft_free_array(all->arg);
-	//all->arg = all->newarg;
-	//all->pipe = 0;
+}
+
+void	ft_make_dup(t_all *all, int **fd, int i, int k)
+{
+	if (i == 0)
+		dup2(fd[i][1], 1);
+	else if (i < k)
+	{
+		close(fd[i - 1][1]);
+		dup2(fd[i - 1][0], 0);
+		dup2(fd[i][1], 1);
+	}
+	else
+	{
+		close(fd[i - 1][1]);
+		dup2(all->fdtmp_1, 1);
+		dup2(fd[i - 1][0], 0);
+	}
+	all->pid[i] = fork();
+	if (all->pid[i] == 0)
+	{
+		ft_make_newarg(all, i + 1);
+		ft_switch_function(all);
+		dup2(all->fdtmp_0, 0);
+		exit(1);
+	}
+}
+
+void	ft_make_pipe(t_all *all, int k)
+{
+	int		**fd;
+	int		i;
+	int		*status;
+
+	i = -1;
+	status = NULL;
+	fd = (int **)malloc(sizeof(int*) * k);
+	all->pid = (pid_t *)malloc(sizeof(pid_t) * k);
+	while (++i <= k)
+	{
+		fd[i] = (int *)malloc(sizeof(int) * 2);
+		fd[i][0] = 1;
+		fd[i][0] = 2;
+		pipe(fd[i]);
+		ft_make_dup(all, fd, i, k);
+	}
+	i = -1;
+	while (++i < k)
+		waitpid(all->pid[i], status, 0);
 }
 
 void	ft_pipe(t_all *all)
 {
-	int k;
 	int i;
-	int **fd;
-	//pid_t *pid;
-	//int *status = NULL;
-	int fdtmp_1;
-	int fdtmp_2;
+	int k;
 
 	k = 0;
 	i = -1;
@@ -83,69 +121,10 @@ void	ft_pipe(t_all *all)
 		if (ft_strncmp(all->arg[i], "|", 1) == 0)
 			k++;
 	}
-	printf("1 Ya tut k = %d\n", k);
-	//k++;
-	fd = (int **)malloc(sizeof(int*) * k);
-	//pid = (pid_t *)malloc(sizeof(pid_t) * k);
-	i = 0;
-	fdtmp_1 = dup(1);
-	fdtmp_2 = dup(0);
-	while (i <= k)
-	{
-		fd[i] = (int *)malloc(sizeof(int) * 2);
-		fd[i][0] = 1;
-		fd[i][0] = 2;
-		pipe(fd[i]);
-		printf("2 Ya tut\n");
-		//pid[i] = fork();
-		//if (pid[i] == 0)
-		//{
-			
-			printf("fork %d\n", i);
-			if (i == 0)
-			{
-				//printf("dup1 %d\n", i);
-				dup2(fd[i][1], 1);
-			}
-			else if (i < k)
-			{
-				//printf("dup2 %d\n", i);
-				close(fd[i - 1][1]);
-				dup2(fd[i - 1][0], 0);
-				dup2(fd[i][1], 1);
-			}
-			else
-			{
-				close(fd[i - 1][1]);
-				dup2(fdtmp_1, 1);
-				dup2(fd[i - 1][0], 0);
-				printf("dup3 %d\n", i);
-			}
-			//printf("fork %d\n", i);
-			ft_make_newarg(all, i + 1);
-			//printf("fork %d\n", i);
-			// int j = -1;
-			// while(all->newarg[++j])
-			// 	printf("i = %d, newarg = %s\n", i, all->newarg[j]);
-			// Проверка на редирект
-			ft_switch_function(all);
-			//exit(129);
-		//}
-		//waitpid(pid[i], status, 0);
-		// printf("i = %d, pid = %d\n", i, (int)pid[i]);
-		i++;
-		//printf("3 Ya tut i = %d\n", i);
-	}
-	
-	dup2(fdtmp_2, 0);
-	//waitpid(-1, 0, 0);
-	// i = -1;
-	// while (++i <= k)
-	// {
-	// 	printf("4 Ya tut i = %d\n", i);
-	// 	waitpid(pid[i], status, 0);
-	// }
-	printf("4 Ya tut\n");
+	all->fdtmp_1 = dup(1);
+	all->fdtmp_0 = dup(0);
+	ft_make_pipe(all, k);
+	dup2(all->fdtmp_0, 0);
+	dup2(all->fdtmp_1, 1);
 	all->pipe = 0;
-	// почистить
 }

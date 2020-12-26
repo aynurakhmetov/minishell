@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <stdio.h>
 #include "minishell.h"
+#include "get_next_line.h"
+#include <signal.h>
 
 int		ft_get_i(char *src)
 {
@@ -85,19 +85,33 @@ char	*ft_newmem(char *src)
 	return (dst);
 }
 
+
 int		get_next_line(int fd, char **line)
 {
 	char	buf[BUFFER_SIZE + 1];
 	int		bytes;
 	char	*mem;
+	int		k;
 
+	k = 0;
 	if (fd < 0 || !line || BUFFER_SIZE <= 0)
 		return (-1);
 	mem = ft_calloc(1, 1);
-	while (!(ft_strchr(mem, '\n')) && (bytes != 0) && mem)
+	while (!(ft_strchr(mem, '\n')) && mem)
 	{
 		if ((bytes = read(fd, buf, BUFFER_SIZE)) == -1)
 			free(mem);
+		if (buf[0] == '\0' || buf[0] == EOF)
+		{
+			if (k == 0)
+			{
+				free(mem);
+				exit(1);
+			}
+			else
+				continue ;
+		}
+		k++;
 		if (bytes == -1)
 			return (-1);
 		buf[bytes] = '\0';
