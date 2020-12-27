@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/29 19:40:11 by ajeanett          #+#    #+#             */
-/*   Updated: 2020/11/24 20:55:12 by ajeanett         ###   ########.fr       */
+/*   Updated: 2020/12/27 11:56:12 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,3 @@ char	*ft_strdup(const char *src)
 	dest[index] = '\0';
 	return (dest);
 }
-
-// char	*ft_strdup(const char *s)
-// {
-// 	unsigned char *t;
-
-// 	t = ft_calloc(ft_strlen(s) + 1, sizeof(char));
-// 	if (t)
-// 		return (ft_memmove(t, s, ft_strlen(s) + 1));
-// 	return (NULL);
-// }

@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 00:40:10 by gmarva            #+#    #+#             */
-/*   Updated: 2020/12/25 16:17:29 by ajeanett         ###   ########.fr       */
+/*   Updated: 2020/12/27 12:08:20 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ char	*ft_newmem(char *src)
 	return (dst);
 }
 
-
 int		get_next_line(int fd, char **line)
 {
 	char	buf[BUFFER_SIZE + 1];
@@ -95,7 +94,6 @@ int		get_next_line(int fd, char **line)
 
 	k = 0;
 	if (fd < 0 || !line || BUFFER_SIZE <= 0)
-	
 		return (-1);
 	mem = ft_calloc(1, 1);
 	while (!(ft_strchr(mem, '\n')) && mem)
