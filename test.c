@@ -79,7 +79,7 @@ int			main(int argc, char **argv, char **envp)
 		return (0);
 	}
 	signal(SIGINT, handle_sigint);
-	signal(SIQUIT, handle_sigint);
+	signal(SIGQUIT, handle_sigint);
 	signal(SIGTERM, SIG_IGN);
 	while (1)
 	{
