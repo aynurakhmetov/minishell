@@ -6,13 +6,13 @@
 /*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 18:01:16 by ajeanett          #+#    #+#             */
-/*   Updated: 2020/12/26 18:34:02 by ajeanett         ###   ########.fr       */
+/*   Updated: 2020/12/28 06:22:42 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	handle_sigint(int signo)
+void	handle_sigint(int signo)
 {
 	if (signo == SIGINT)
 	{
@@ -20,7 +20,11 @@ static void	handle_sigint(int signo)
 		ft_putstr_fd("\n", 1);
 		write(1, "ajeanett_gmarva ", 16);
 	}
+	else
+		write(1, "\b\b  \b\b", 6);
 }
+
+
 
 void		space_skip(t_all *all, int *i)
 {
@@ -75,6 +79,8 @@ int			main(int argc, char **argv, char **envp)
 		return (0);
 	}
 	signal(SIGINT, handle_sigint);
+	signal(SIQUIT, handle_sigint);
+	signal(SIGTERM, SIG_IGN);
 	while (1)
 	{
 		write(1, all.prompt, ft_strlen(all.prompt));
