@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 17:31:53 by ajeanett          #+#    #+#             */
-/*   Updated: 2020/12/28 06:19:10 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/01 02:47:18 by student          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,6 @@ int					ft_get_number_of_redir(t_all *all);
 void				ft_get_each_redir(t_all *all, int *redir);
 void				ft_close_fd(t_all *all);
 void				ft_react();
-void				handle_sigint(int signo);
+void				handle_sigint(void);
 
 #endif

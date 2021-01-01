@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 20:36:25 by ajeanett          #+#    #+#             */
-/*   Updated: 2020/12/24 21:42:49 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/01 09:26:46 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ void	ft_e(t_all *all, char c)
 	char *err;
 
 	err = "bash: syntax error near unexpected token `";
-	ft_putendl_fd(ft_chrjoin(ft_chrjoin(err, c), 39), 2);
+	write(2, err, ft_strlen(err));
+	write(2, &c, 1);
+	ft_putendl_fd("`", 2);
 	all->res = 258;
 }
 
@@ -26,7 +28,9 @@ void	ft_e_red(t_all *all, char *s)
 	char *err;
 
 	err = "bash: syntax error near unexpected token `";
-	ft_putendl_fd(ft_chrjoin(ft_strjoin(err, s), 39), 2);
+	write(2, err, ft_strlen(err));
+	write(2, s, ft_strlen(s));
+	ft_putendl_fd("`", 2);
 	all->res = 258;
 }
 

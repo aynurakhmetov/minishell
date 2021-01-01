@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 00:40:10 by gmarva            #+#    #+#             */
-/*   Updated: 2020/12/27 12:08:20 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/01 10:14:14 by student          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,6 @@ int		get_next_line(int fd, char **line)
 			else
 				continue ;
 		}
-		signal(SIGINT, ft_react);
 		k++;
 		if (bytes == -1)
 			return (-1);
