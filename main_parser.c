@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 19:47:21 by ajeanett          #+#    #+#             */
-/*   Updated: 2020/12/24 21:24:55 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/02 20:25:49 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int			check_parser_var(t_all *all, int *i, char c, char *line)
 	if (c == 36 && all->backslash == 0 && line[tmp + 1] == '?')
 	{
 		arg = all->arg[all->count];
-		var = ft_itoa(all->res);
+		var = ft_itoa(g_res);
 		all->arg[all->count] = ft_strjoin(all->arg[all->count], var);
 		all->var = 0;
 		if (arg)

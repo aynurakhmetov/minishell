@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 20:19:15 by ajeanett          #+#    #+#             */
-/*   Updated: 2020/12/25 08:26:15 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/02 20:26:15 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		check_d_var_result(t_all *all, int *i)
 	char	*tmp;
 
 	tmp = all->arg[all->count];
-	var = ft_itoa(all->res);
+	var = ft_itoa(g_res);
 	all->arg[all->count] = ft_strjoin(all->arg[all->count], var);
 	all->var = 0;
 	if (tmp)

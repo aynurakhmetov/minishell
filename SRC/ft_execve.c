@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execve.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmarva <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 22:05:14 by gmarva            #+#    #+#             */
-/*   Updated: 2020/11/28 22:05:16 by gmarva           ###   ########.fr       */
+/*   Updated: 2021/01/02 20:27:22 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,14 @@ void	ft_execve(t_all *all)
 	tmp = NULL;
 	mem = NULL;
 	i = ft_get_i_enf(all->env);
-	all->res = 0;
+	g_res = 0;
 	i = ft_do_execve(all, tmp, mem, i);
 	if (execve(all->arg[0], all->arg, all->env) == -1)
 	{
 		ft_putstr_fd("bash: ", 1);
 		ft_putstr_fd(all->arg[0], 1);
 		ft_putendl_fd(": command not found", 1);
-		all->res = 127;
+		g_res = 127;
 	}
 	exit(i);
 }

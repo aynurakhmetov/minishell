@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 07:04:14 by gmarva            #+#    #+#             */
-/*   Updated: 2021/01/02 19:33:55 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/02 20:26:49 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_make_execve(t_all *all)
 	else if (pid == 0)
 		ft_execve(all);
 	waitpid(pid, &status, 0);
-	all->res = WEXITSTATUS(status);
+	g_res = WEXITSTATUS(status);
 	kill(pid, SIGTERM);
 }
 

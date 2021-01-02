@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmarva <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 10:29:30 by gmarva            #+#    #+#             */
-/*   Updated: 2020/11/27 10:29:32 by gmarva           ###   ########.fr       */
+/*   Updated: 2021/01/02 23:36:50 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	ft_all_free(t_all *all, int num)
 {
 	ft_free_array(all->env);
 	ft_free_array(all->arg);
-	if (all->newarg)
-		ft_free_array(all->newarg);
+	//if (all->newarg) Если использовать exit с аргументом (код выхода), то из-за этой строки идет дабл фри
+	//	ft_free_array(all->newarg);
 	exit(num);
 }
 
@@ -35,13 +35,13 @@ void	ft_make_exit(t_all *all, int i, size_t j)
 	{
 		ft_putendl_fd("exit", 1);
 		ft_all_free(all, 0);
-		all->res = 1;
+		g_res = 1;
 	}
 	else if (j == ft_strlen(all->arg[1]) && i > 2)
 	{
 		ft_putendl_fd("exit", 1);
 		ft_putendl_fd("bash: exit: too many arguments", 1);
-		all->res = 1;
+		g_res = 1;
 	}
 }
 

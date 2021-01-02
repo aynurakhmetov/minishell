@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 19:14:04 by ajeanett          #+#    #+#             */
-/*   Updated: 2021/01/02 19:36:01 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/02 20:25:40 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	init_struct(t_all *all)
 	all->size = 2;
 	all->arg = NULL;
 	all->count = 0;
-	all->res = 0;
+	g_res = 0;
 	g_all_start = 0;
 }
 

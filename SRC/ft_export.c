@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmarva <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 08:46:44 by gmarva            #+#    #+#             */
-/*   Updated: 2020/11/27 08:46:46 by gmarva           ###   ########.fr       */
+/*   Updated: 2021/01/02 23:12:58 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,6 @@ int		ft_export(t_all *all)
 	ft_sort_env(sort_env);
 	ft_write_export(sort_env);
 	ft_free_array(sort_env);
-	all->res = 0;
+	g_res = 0;
 	return (0);
 }

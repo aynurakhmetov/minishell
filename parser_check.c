@@ -6,13 +6,13 @@
 /*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 20:36:25 by ajeanett          #+#    #+#             */
-/*   Updated: 2021/01/02 19:56:24 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/02 21:04:50 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_e(t_all *all, char c)
+void	ft_e(char c)
 {
 	char *err;
 
@@ -20,10 +20,10 @@ void	ft_e(t_all *all, char c)
 	write(2, err, ft_strlen(err));
 	write(2, &c, 1);
 	ft_putendl_fd("`", 2);
-	all->res = 258;
+	g_res = 258;
 }
 
-void	ft_e_red(t_all *all, char *s)
+void	ft_e_red(char *s)
 {
 	char *err;
 
@@ -31,10 +31,10 @@ void	ft_e_red(t_all *all, char *s)
 	write(2, err, ft_strlen(err));
 	write(2, s, ft_strlen(s));
 	ft_putendl_fd("`", 2);
-	all->res = 258;
+	g_res = 258;
 }
 
-int		check_left_redir(t_all *all, char *line, int i)
+int		check_left_redir(char *line, int i)
 {
 	if (line[i] == '<')
 	{
@@ -42,19 +42,19 @@ int		check_left_redir(t_all *all, char *line, int i)
 			i++;
 		if (line[i + 1] == '\0')
 		{
-			ft_e_red(all, "newline");
+			ft_e_red("newline");
 			return (1);
 		}
 		if (ft_strchr("><;|", line[i + 1]))
 		{
-			ft_e(all, line[i + 1]);
+			ft_e(line[i + 1]);
 			return (1);
 		}
 	}
 	return (0);
 }
 
-int		check_right_redir(t_all *all, char *line, int i)
+int		check_right_redir(char *line, int i)
 {
 	if (line[i] == '>')
 	{
@@ -62,19 +62,19 @@ int		check_right_redir(t_all *all, char *line, int i)
 			i++;
 		if (line[i + 1] == '\0')
 		{
-			ft_e_red(all, "newline");
+			ft_e_red("newline");
 			return (1);
 		}
 		if (ft_strchr("><;|", line[i + 1]))
 		{
-			ft_e(all, line[i + 1]);
+			ft_e(line[i + 1]);
 			return (1);
 		}
 	}
 	return (0);
 }
 
-int		check_redir(t_all *all, char *line, int i)
+int		check_redir(char *line, int i)
 {
 	if (line[i] == '>' && line[i + 1] == '>')
 	{
@@ -82,18 +82,18 @@ int		check_redir(t_all *all, char *line, int i)
 			i++;
 		if (line[i + 2] == '\0')
 		{
-			ft_e_red(all, "newline");
+			ft_e_red("newline");
 			return (1);
 		}
 		if (ft_strchr("><;|", line[i + 2]))
 		{
-			ft_e(all, line[i + 2]);
+			ft_e(line[i + 2]);
 			return (1);
 		}
 	}
-	if (check_left_redir(all, line, i))
+	if (check_left_redir(line, i))
 		return (1);
-	if (check_right_redir(all, line, i))
+	if (check_right_redir(line, i))
 		return (1);
 	return (0);
 }

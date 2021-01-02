@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmarva <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 17:25:24 by gmarva            #+#    #+#             */
-/*   Updated: 2020/11/26 17:25:26 by gmarva           ###   ########.fr       */
+/*   Updated: 2021/01/02 20:26:42 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_print_cd_error(t_all *all)
 	ft_putstr_fd("bash: cd: ", 1);
 	ft_putstr_fd(all->arg[1], 1);
 	ft_putendl_fd(": No such file or directory", 1);
-	all->res = 1;
+	g_res = 1;
 }
 
 int		ft_make_cd(t_all *all, int h)
@@ -34,7 +34,7 @@ int		ft_make_cd(t_all *all, int h)
 		if (h == -1)
 		{
 			ft_putendl_fd("bash: cd: HOME not set", 1);
-			all->res = 0;
+			g_res = 0;
 			return (result);
 		}
 		else
@@ -92,7 +92,7 @@ int		ft_cd(t_all *all)
 		if (ft_strncmp(all->env[i], "HOME=", ft_strlen("HOME=")) == 0)
 			h = i;
 	}
-	all->res = 0;
+	g_res = 0;
 	h = ft_make_cd(all, h);
 	ft_set_pwd(all, k, l);
 	return (h);

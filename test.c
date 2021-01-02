@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 18:01:16 by ajeanett          #+#    #+#             */
-/*   Updated: 2021/01/02 19:43:23 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/02 21:37:50 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ int			main(int argc, char **argv, char **envp)
 		write(1, all.prompt, ft_strlen(all.prompt));
 		line = NULL;
 		ret = 0;
-		ret = get_next_line(0, &line, &all);
+		ret = get_next_line(&all, 0, &line);
 		if (ret >= 0)
 			parser(line, &all);
 		if (line)

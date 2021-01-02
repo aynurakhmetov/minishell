@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmarva <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/27 08:53:46 by gmarva            #+#    #+#             */
-/*   Updated: 2020/11/27 08:53:47 by gmarva           ###   ########.fr       */
+/*   Updated: 2021/01/02 20:27:07 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_env_write(t_all *all)
 			}
 		}
 	}
-	all->res = 0;
+	g_res = 0;
 }
 
 int		ft_env(t_all *all)
@@ -47,7 +47,7 @@ int		ft_env(t_all *all)
 		ft_putstr_fd("env: ", 1);
 		ft_putstr_fd(all->arg[1], 1);
 		ft_putendl_fd(": No such file or directory", 1);
-		all->res = 127;
+		g_res = 127;
 	}
-	return (all->res);
+	return (g_res);
 }

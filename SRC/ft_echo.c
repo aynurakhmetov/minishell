@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_echo.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmarva <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 12:00:13 by gmarva            #+#    #+#             */
-/*   Updated: 2020/11/23 12:00:19 by gmarva           ###   ########.fr       */
+/*   Updated: 2021/01/02 20:27:30 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,6 @@ int	ft_echo(t_all *all)
 	k = ft_echo_write(all, i, k, m);
 	if (k == 0)
 		ft_putchar_fd('\n', 1);
-	all->res = 0;
-	return (all->res);
+	g_res = 0;
+	return (g_res);
 }

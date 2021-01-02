@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 20:42:17 by ajeanett          #+#    #+#             */
-/*   Updated: 2020/12/24 22:22:36 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/02 21:04:41 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int		check_syntax(char *line, t_all *all)
 		{
 			if (check == 0 && ft_strchr(";|", line[i]))
 			{
-				ft_e(all, line[i]);
+				ft_e(line[i]);
 				return (1);
 			}
 			if (!ft_isspace(line[i]) && check == 0)
@@ -46,7 +46,7 @@ int		check_syntax(char *line, t_all *all)
 			if (check == 1 && ft_strchr(";", line[i]))
 				check = 0;
 			if (line[i] == '<' || line[i] == '>')
-				if (check_redir(all, line, i))
+				if (check_redir(line, i))
 					return (1);
 		}
 	}

@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 17:31:53 by ajeanett          #+#    #+#             */
-/*   Updated: 2021/01/02 19:31:49 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/02 21:13:51 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct		s_all
 	int				have_read;
 }					t_all;
 
-int					get_next_line(int fd, char **line, t_all *all);
+int					get_next_line(t_all *all, int fd, char **line);
 size_t				ft_strlen2(const char *str);
 char				*ft_strdup2(const char *str);
 char				*ft_strjoin2(char const *s1, char const *s2);
@@ -94,11 +94,11 @@ void				check_backslash(t_all *all, int *i, char c, char next);
 int					check_d_var_result(t_all *all, int *i);
 void				dqotes_parser(t_all *all, char *line, int *i);
 void				sqotes_parser(t_all *all, char *line, int *i);
-void				ft_e(t_all *all, char c);
-void				ft_e_red(t_all *all, char *s);
-int					check_left_redir(t_all *all, char *line, int i);
-int					check_right_redir(t_all *all, char *line, int i);
-int					check_redir(t_all *all, char *line, int i);
+void				ft_e(char c);
+void				ft_e_red(char *s);
+int					check_left_redir(char *line, int i);
+int					check_right_redir(char *line, int i);
+int					check_redir(char *line, int i);
 void				quotes_flag(char c, t_all *all);
 int					check_syntax(char *line, t_all *all);
 char				**ft_array_copy(char **array_original, int i);
@@ -122,7 +122,7 @@ void				ft_make_newarg2(t_all *all, int pipenum);
 int					ft_get_number_of_redir(t_all *all);
 void				ft_get_each_redir(t_all *all, int *redir);
 void				ft_close_fd(t_all *all);
-void				ft_signal_treatment(char buf_one, char *mem, t_all *all);
+void				ft_signal_treatment(t_all *all, char buf_one, char *mem);
 void				ft_react_c(void);
 void				ft_react_slash(void);
 
