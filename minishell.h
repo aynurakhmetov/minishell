@@ -6,12 +6,11 @@
 /*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 17:31:53 by ajeanett          #+#    #+#             */
-/*   Updated: 2021/01/01 02:47:18 by student          ###   ########.fr       */
+/*   Updated: 2021/01/02 19:31:49 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
-
 # define MINISHELL_H
 
 # include <math.h>
@@ -26,8 +25,12 @@
 # include <dirent.h>
 # include <unistd.h>
 # include <sys/wait.h>
+# define BUFFER_SIZE 1
 
-# include "get_next_line.h"
+int					g_read_start;
+int					g_all_start;
+int					g_execve_signal;
+int					g_res;
 
 typedef struct		s_list_arg
 {
@@ -59,9 +62,17 @@ typedef struct		s_all
 	int				fdtmp_0;
 	pid_t			*pid;
 	int				fdtmp[2];
+	int				have_read;
 }					t_all;
 
-int					get_next_line(int fd, char **line);
+int					get_next_line(int fd, char **line, t_all *all);
+size_t				ft_strlen2(const char *str);
+char				*ft_strdup2(const char *str);
+char				*ft_strjoin2(char const *s1, char const *s2);
+char				*ft_strchr2(const char *str, int ch);
+void				*ft_memmove2(void *des, const void *src, size_t n);
+int					ft_get_i(char *src);
+char				*ft_newline(char *src);
 char				*ft_chrjoin(char *s1, const char s2);
 char				**ft_realloc(char **ptr, size_t newsize);
 int					check_end(t_all *all, char c);
@@ -111,7 +122,8 @@ void				ft_make_newarg2(t_all *all, int pipenum);
 int					ft_get_number_of_redir(t_all *all);
 void				ft_get_each_redir(t_all *all, int *redir);
 void				ft_close_fd(t_all *all);
-void				ft_react();
-void				handle_sigint(void);
+void				ft_signal_treatment(char buf_one, char *mem, t_all *all);
+void				ft_react_c(void);
+void				ft_react_slash(void);
 
 #endif

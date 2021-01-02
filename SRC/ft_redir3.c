@@ -19,7 +19,8 @@ void	ft_get_newarg2(t_all *all, char **str, int i, int k)
 	if (all->newarg && all->newarg[0])
 		ft_free_array(all->newarg);
 	j = (i - (k - 1));
-	all->newarg = (char **)malloc(sizeof(char *) * (k + 1));
+	if (!(all->newarg = (char **)malloc(sizeof(char *) * (k + 1))))
+		ft_exit(all);
 	k = 0;
 	while (j < i)
 	{

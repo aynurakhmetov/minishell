@@ -10,10 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <stdio.h>
+#include "minishell.h"
 
-size_t	ft_strlen(const char *str)
+size_t	ft_strlen2(const char *str)
 {
 	size_t counter;
 
@@ -25,7 +24,7 @@ size_t	ft_strlen(const char *str)
 	return (counter);
 }
 
-void	*ft_memmove(void *des, const void *src, size_t n)
+void	*ft_memmove2(void *des, const void *src, size_t n)
 {
 	unsigned char	*to;
 	unsigned char	*from;
@@ -52,7 +51,7 @@ void	*ft_memmove(void *des, const void *src, size_t n)
 	return (des);
 }
 
-char	*ft_strdup(const char *src)
+char	*ft_strdup2(const char *src)
 {
 	char	*dest;
 	int		m;
@@ -104,7 +103,7 @@ char	*ft_strjoin2(char const *s1, char const *s2)
 	return (str);
 }
 
-char	*ft_strchr(const char *str, int ch)
+char	*ft_strchr2(const char *str, int ch)
 {
 	int	i;
 

@@ -20,7 +20,8 @@ void	ft_add_to_env(t_all *all, char *newvalue)
 	i = 0;
 	while (all->env[i] != 0)
 		i++;
-	array_copy = (char **)malloc(sizeof(char*) * (i + 2));
+	if (!(array_copy = (char **)malloc(sizeof(char*) * (i + 2))))
+		ft_exit(all);
 	i = -1;
 	while (all->env[++i] != 0)
 		array_copy[i] = ft_strdup(all->env[i]);

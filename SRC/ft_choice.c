@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_choice.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmarva <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 07:04:14 by gmarva            #+#    #+#             */
-/*   Updated: 2020/11/26 07:04:18 by gmarva           ###   ########.fr       */
+/*   Updated: 2021/01/02 19:33:55 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ char	**ft_array_copy(char **array_original, int i)
 	i -= 1;
 	while (array_original[++i] != 0)
 		k++;
-	array_copy = (char **)malloc(sizeof(char*) * (k + 1));
+	if (!(array_copy = (char **)malloc(sizeof(char*) * (k + 1))))
+		exit(0);
 	tmp -= 1;
 	i = -1;
 	while (array_original[++tmp] != 0)
@@ -37,14 +38,16 @@ char	**ft_array_copy(char **array_original, int i)
 void	ft_make_execve(t_all *all)
 {
 	pid_t	pid;
-	int		*status;
+	int		status;
 
-	status = NULL;
+	g_execve_signal = 1;
 	if ((pid = fork()) < 0)
 		ft_putendl_fd("fork_error", 1);
 	else if (pid == 0)
 		ft_execve(all);
-	wait(status);
+	waitpid(pid, &status, 0);
+	all->res = WEXITSTATUS(status);
+	kill(pid, SIGTERM);
 }
 
 void	ft_switch_function2(t_all *all, int result)
@@ -69,6 +72,7 @@ void	ft_switch_function2(t_all *all, int result)
 		ft_exit(all);
 	else
 		ft_make_execve(all);
+	g_execve_signal = 0;
 }
 
 void	ft_switch_function(t_all *all)
@@ -95,6 +99,7 @@ void	ft_switch_function(t_all *all)
 		ft_switch_function2(all, result);
 	if (k > 0)
 	{
+		ft_free_array(all->arg);
 		all->arg = tmp;
 		k = 0;
 	}
@@ -102,9 +107,13 @@ void	ft_switch_function(t_all *all)
 
 void	ft_choice_function(t_all *all)
 {
-	all->newarg = (char **)malloc(sizeof(char*) * 2);
-	all->newarg[0] = ft_strdup("");
-	all->newarg[1] = 0;
+	if (all->pipe == 1 || all->redir == 1)
+	{
+		if (!(all->newarg = (char **)malloc(sizeof(char*) * 2)))
+			ft_exit(all);
+		all->newarg[0] = ft_strdup("");
+		all->newarg[1] = 0;
+	}
 	if ((all->pipe == 1 && all->redir == 0))
 		ft_pipe(all);
 	else if ((all->pipe == 0 && all->redir == 1)
@@ -112,4 +121,9 @@ void	ft_choice_function(t_all *all)
 		ft_redir(all);
 	else
 		ft_switch_function(all);
+	if (all->pipe == 1 || all->redir == 1)
+	{
+		if (all->newarg && all->newarg[0])
+			ft_free_array(all->newarg);
+	}
 }

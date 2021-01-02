@@ -21,7 +21,8 @@ void	ft_get_newarg(t_all *all, char **str, int i, int k)
 		ft_free_array(all->newarg);
 	j = (i - (k - 1));
 	len = k;
-	all->newarg = (char **)malloc(sizeof(char *) * (k + 1));
+	if (!(all->newarg = (char **)malloc(sizeof(char *) * (k + 1))))
+		ft_exit(all);
 	k = 0;
 	while (j < i)
 	{
@@ -94,19 +95,34 @@ void	ft_make_pipe(t_all *all, int k)
 
 	i = -1;
 	status = NULL;
-	fd = (int **)malloc(sizeof(int*) * k);
-	all->pid = (pid_t *)malloc(sizeof(pid_t) * k);
+	if (!(fd = (int **)malloc(sizeof(int*) * k)))
+		ft_exit(all);
+	if (!(all->pid = (pid_t *)malloc(sizeof(pid_t) * k)))
+		ft_exit(all);
 	while (++i <= k)
 	{
-		fd[i] = (int *)malloc(sizeof(int) * 2);
+		if (!(fd[i] = (int *)malloc(sizeof(int) * 2)))
+			ft_exit(all);
 		fd[i][0] = 1;
 		fd[i][0] = 2;
 		pipe(fd[i]);
 		ft_make_dup(all, fd, i, k);
 	}
 	i = -1;
-	while (++i < k)
+	while (++i <= k)
 		waitpid(all->pid[i], status, 0);
+	i = -1;
+	while (++i <= k)
+	{
+		if (fd[i][0])
+			close(fd[i][0]);
+		if (fd[i][1])
+			close(fd[i][1]);
+		free(fd[i]);
+		kill(all->pid[i], SIGTERM);
+	}
+	free(all->pid);
+	free(fd);
 }
 
 void	ft_pipe(t_all *all)

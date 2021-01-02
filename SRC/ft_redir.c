@@ -113,7 +113,8 @@ void	ft_redir(t_all *all)
 	int *redir;
 
 	k = ft_get_number_of_redir(all);
-	redir = (int *)malloc(sizeof(int) * (k + 1));
+	if (!(redir = (int *)malloc(sizeof(int) * (k + 1))))
+		ft_exit(all);
 	ft_get_each_redir(all, redir);
 	ft_get_fd(all, k, redir);
 	ft_make_newarg2(all, 0 + 1);

@@ -6,37 +6,11 @@
 /*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 18:01:16 by ajeanett          #+#    #+#             */
-/*   Updated: 2021/01/01 09:29:32 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/02 19:43:23 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void		handle_sigint(void)
-{
-	int	pid;
-
-	pid = waitpid(-1, NULL, WNOHANG);
-	if (pid)
-	{
-		write(1, "\b\b  \b\b", 6);
-		ft_putstr_fd("\n", 1);
-		write(1, "ajeanett_gmarva ", 16);
-	}
-	else
-		write(1, "\b\b  \b\b", 6);
-}
-
-void		handle_sigquit(void)
-{
-	int pid;
-
-	pid = waitpid(-1, NULL, WNOHANG);
-	if (!pid)
-		ft_putendl_fd("\b\b  \b\bQuit: 3", 1);
-	else
-		write(1, "\b\b  \b\b", 6);
-}
 
 void		space_skip(t_all *all, int *i)
 {
@@ -56,6 +30,7 @@ void		parser(char *line, t_all *all)
 	if (check_syntax(line, all))
 		return ;
 	init_arg(all);
+	g_all_start++;
 	i = -1;
 	while (line[++i] != '\0')
 	{
@@ -76,6 +51,16 @@ void		parser(char *line, t_all *all)
 	clear_arg(all);
 }
 
+static int	check_argc_argv(int argc, char **argv)
+{
+	if (argc > 1 && argv[1])
+	{
+		ft_putendl_fd("Error.\nToo many arguments", 2);
+		return (1);
+	}
+	return (0);
+}
+
 int			main(int argc, char **argv, char **envp)
 {
 	t_all	all;
@@ -84,19 +69,18 @@ int			main(int argc, char **argv, char **envp)
 
 	init_struct(&all);
 	init_env(&all, envp);
-	if (argc > 1 && argv[1])
-	{
-		ft_putendl_fd("Error.\nToo many arguments", 2);
+	if (check_argc_argv(argc, argv) == 1)
 		return (0);
-	}
-	signal(SIGINT, (void *)handle_sigint);
-	signal(SIGQUIT, (void *)handle_sigquit);
 	while (1)
 	{
+		if (signal(SIGINT, (void*)ft_react_c) == SIG_ERR)
+			ft_exit(&all);
+		if (signal(SIGQUIT, (void*)ft_react_slash) == SIG_ERR)
+			ft_exit(&all);
 		write(1, all.prompt, ft_strlen(all.prompt));
 		line = NULL;
 		ret = 0;
-		ret = get_next_line(0, &line);
+		ret = get_next_line(0, &line, &all);
 		if (ret >= 0)
 			parser(line, &all);
 		if (line)

@@ -27,7 +27,6 @@ int		ft_make_cd(t_all *all, int h)
 
 	j = 0;
 	result = -1;
-	opendir(all->arg[1]);
 	while (all->arg[j])
 		j++;
 	if (j == 1)
@@ -57,7 +56,10 @@ void	ft_set_pwd(t_all *all, int k, int l)
 		if (all->env[k])
 			free(all->env[k]);
 		if (l == -1)
-			all->env[k] = ft_strdup("OLDDPWD=");
+		{
+			if (!(all->env[k] = ft_strdup("OLDDPWD=")))
+				ft_exit(all);
+		}
 		else
 			all->env[k] = ft_strjoin("OLD", all->env[l]);
 	}
@@ -92,5 +94,6 @@ int		ft_cd(t_all *all)
 	}
 	all->res = 0;
 	h = ft_make_cd(all, h);
+	ft_set_pwd(all, k, l);
 	return (h);
 }

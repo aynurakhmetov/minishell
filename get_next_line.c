@@ -6,13 +6,11 @@
 /*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 00:40:10 by gmarva            #+#    #+#             */
-/*   Updated: 2021/01/01 10:14:14 by student          ###   ########.fr       */
+/*   Updated: 2021/01/02 20:05:33 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#include "get_next_line.h"
-#include <signal.h>
 
 int		ft_get_i(char *src)
 {
@@ -37,84 +35,31 @@ char	*ft_newline(char *src)
 		free(src);
 		return (0);
 	}
-	ft_memmove(dst, src, i);
+	ft_memmove2(dst, src, i);
 	dst[i] = '\0';
 	return (dst);
 }
 
-char	*ft_endtest(char *src)
-{
-	int i;
-
-	if (src)
-	{
-		i = ft_get_i(src);
-		if (!src[i])
-		{
-			free(src);
-			return (0);
-		}
-	}
-	return (src);
-}
-
-char	*ft_newmem(char *src)
-{
-	int		i;
-	int		j;
-	char	*dst;
-
-	if (!src)
-		return (0);
-	i = ft_get_i(src);
-	if (!(dst = (char *)malloc(sizeof(char) * (ft_strlen(src) - i + 1))))
-	{
-		free(src);
-		return (0);
-	}
-	j = 0;
-	i++;
-	while (src[i])
-	{
-		dst[j] = src[i];
-		j++;
-		i++;
-	}
-	dst[j] = '\0';
-	free(src);
-	return (dst);
-}
-
-int		get_next_line(int fd, char **line)
+int		get_next_line(int fd, char **line, t_all *all)
 {
 	char	buf[BUFFER_SIZE + 1];
 	int		bytes;
 	char	*mem;
-	int		k;
 
-	k = 0;
+	g_read_start = 0;
 	if (fd < 0 || !line || BUFFER_SIZE <= 0)
 		return (-1);
 	mem = ft_calloc(1, 1);
-	while (!(ft_strchr(mem, '\n')) && mem)
+	while (!(ft_strchr2(mem, '\n')) && mem)
 	{
 		if ((bytes = read(fd, buf, BUFFER_SIZE)) == -1)
 			free(mem);
-		if (buf[0] == '\0' || buf[0] == EOF)
-		{
-			if (k == 0)
-			{
-				free(mem);
-				exit(1);
-			}
-			else
-				continue ;
-		}
-		k++;
 		if (bytes == -1)
 			return (-1);
 		buf[bytes] = '\0';
 		mem = ft_strjoin2(mem, buf);
+		ft_signal_treatment(buf[0], mem, all);
+		g_read_start++;
 	}
 	if (!(*line = ft_newline(mem)) || !mem)
 		return (-1);

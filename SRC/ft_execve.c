@@ -25,8 +25,10 @@ int		ft_get_i_enf(char **ienv)
 	return (-1);
 }
 
-void	ft_make_exexve(t_all *all, char **tmp, char *mem, int i)
+int		ft_do_execve(t_all *all, char **tmp, char *mem, int i)
 {
+	int res;
+
 	if (i != -1)
 	{
 		tmp = ft_split(&all->env[i][5], ':');
@@ -37,7 +39,7 @@ void	ft_make_exexve(t_all *all, char **tmp, char *mem, int i)
 			if (all->arg[0])
 				free(all->arg[0]);
 			all->arg[0] = ft_strjoin(tmp[i], mem);
-			execve(all->arg[0], all->arg, all->env);
+			res = execve(all->arg[0], all->arg, all->env);
 		}
 		if (all->arg[0])
 			free(all->arg[0]);
@@ -47,7 +49,8 @@ void	ft_make_exexve(t_all *all, char **tmp, char *mem, int i)
 			free(mem);
 	}
 	else
-		execve(all->arg[0], all->arg, all->env);
+		res = execve(all->arg[0], all->arg, all->env);
+	return (res);
 }
 
 void	ft_execve(t_all *all)
@@ -60,7 +63,7 @@ void	ft_execve(t_all *all)
 	mem = NULL;
 	i = ft_get_i_enf(all->env);
 	all->res = 0;
-	ft_make_exexve(all, tmp, mem, i);
+	i = ft_do_execve(all, tmp, mem, i);
 	if (execve(all->arg[0], all->arg, all->env) == -1)
 	{
 		ft_putstr_fd("bash: ", 1);
@@ -68,5 +71,5 @@ void	ft_execve(t_all *all)
 		ft_putendl_fd(": command not found", 1);
 		all->res = 127;
 	}
-	exit(0);
+	exit(i);
 }
