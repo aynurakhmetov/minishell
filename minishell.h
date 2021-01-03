@@ -31,6 +31,7 @@ int					g_read_start;
 int					g_all_start;
 int					g_execve_signal;
 int					g_res;
+int					g_pipe;
 
 typedef struct		s_list_arg
 {
@@ -125,5 +126,7 @@ void				ft_close_fd(t_all *all);
 void				ft_signal_treatment(t_all *all, char buf_one, char *mem);
 void				ft_react_c(void);
 void				ft_react_slash(void);
+void				ft_get_newarg(t_all *all, char **str, int i, int k);
+void				ft_make_newarg(t_all *all, int pipenum);
 
 #endif

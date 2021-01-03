@@ -16,8 +16,6 @@ void	ft_all_free(t_all *all, int num)
 {
 	ft_free_array(all->env);
 	ft_free_array(all->arg);
-	//if (all->newarg) Если использовать exit с аргументом (код выхода), то из-за этой строки идет дабл фри
-	//	ft_free_array(all->newarg);
 	exit(num);
 }
 
@@ -33,9 +31,9 @@ void	ft_make_exit(t_all *all, int i, size_t j)
 	}
 	else if (j == ft_strlen(all->arg[1]) && i == 2)
 	{
+		g_res = ft_atoi(all->arg[1]);
 		ft_putendl_fd("exit", 1);
-		ft_all_free(all, 0);
-		g_res = 1;
+		ft_all_free(all, g_res);
 	}
 	else if (j == ft_strlen(all->arg[1]) && i > 2)
 	{
@@ -67,6 +65,6 @@ void	ft_exit(t_all *all)
 	else if (i == 1)
 	{
 		ft_putendl_fd("exit", 1);
-		ft_all_free(all, 0);
+		ft_all_free(all, g_res);
 	}
 }

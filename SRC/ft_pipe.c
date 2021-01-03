@@ -12,55 +12,6 @@
 
 #include "../minishell.h"
 
-void	ft_get_newarg(t_all *all, char **str, int i, int k)
-{
-	int j;
-	int len;
-
-	if (all->newarg && all->newarg[0])
-		ft_free_array(all->newarg);
-	j = (i - (k - 1));
-	len = k;
-	if (!(all->newarg = (char **)malloc(sizeof(char *) * (k + 1))))
-		ft_exit(all);
-	k = 0;
-	while (j < i)
-	{
-		if ((ft_strncmp(str[j], ">", 1) == 0 && ft_strlen(str[j]) == 1)
-		|| (ft_strncmp(str[j], ">>", 2) == 0 && ft_strlen(str[j]) == 2)
-		|| (ft_strncmp(str[j], "<", 1) == 0 && ft_strlen(str[j]) == 1))
-			break ;
-		all->newarg[k] = ft_strdup(str[j]);
-		j++;
-		k++;
-	}
-	all->newarg[k] = 0;
-}
-
-void	ft_make_newarg(t_all *all, int pipenum)
-{
-	int i;
-	int k;
-	int l;
-
-	i = -1;
-	k = 0;
-	l = 0;
-	while (all->arg[++i] != 0)
-	{
-		k++;
-		if (ft_strncmp(all->arg[i], "|", 1) == 0)
-		{
-			l++;
-			if (l == pipenum)
-				ft_get_newarg(all, all->arg, i, k);
-			k = 0;
-		}
-	}
-	if (l + 1 == pipenum)
-		ft_get_newarg(all, all->arg, i, k + 1);
-}
-
 void	ft_make_dup(t_all *all, int **fd, int i, int k)
 {
 	if (i == 0)
@@ -87,30 +38,10 @@ void	ft_make_dup(t_all *all, int **fd, int i, int k)
 	}
 }
 
-void	ft_make_pipe(t_all *all, int k)
+void	ft_closefd_and_killpid(int k, int **fd, t_all *all)
 {
-	int		**fd;
-	int		i;
-	int		*status;
+	int i;
 
-	i = -1;
-	status = NULL;
-	if (!(fd = (int **)malloc(sizeof(int*) * k)))
-		ft_exit(all);
-	if (!(all->pid = (pid_t *)malloc(sizeof(pid_t) * k)))
-		ft_exit(all);
-	while (++i <= k)
-	{
-		if (!(fd[i] = (int *)malloc(sizeof(int) * 2)))
-			ft_exit(all);
-		fd[i][0] = 1;
-		fd[i][0] = 2;
-		pipe(fd[i]);
-		ft_make_dup(all, fd, i, k);
-	}
-	i = -1;
-	while (++i <= k)
-		waitpid(all->pid[i], status, 0);
 	i = -1;
 	while (++i <= k)
 	{
@@ -118,11 +49,38 @@ void	ft_make_pipe(t_all *all, int k)
 			close(fd[i][0]);
 		if (fd[i][1])
 			close(fd[i][1]);
-		free(fd[i]);
+		free((void *)fd[i]);
+		fd[i] = NULL;
 		kill(all->pid[i], SIGTERM);
 	}
-	free(all->pid);
-	free(fd);
+	free((void *)all->pid);
+	all->pid = NULL;
+	free((void *)fd);
+	fd = NULL;
+}
+
+void	ft_make_pipe(t_all *all, int k)
+{
+	int		**fd;
+	int		i;
+	int		status;
+
+	i = -1;
+	if (!(fd = (int **)malloc(sizeof(int*) * (k + 1))))
+		ft_exit(all);
+	if (!(all->pid = (pid_t *)malloc(sizeof(pid_t) * (k + 1))))
+		ft_exit(all);
+	while (++i <= k)
+	{
+		if (!(fd[i] = (int *)malloc(sizeof(int) * 2)))
+			ft_exit(all);
+		pipe(fd[i]);
+		ft_make_dup(all, fd, i, k);
+	}
+	i = -1;
+	while (++i <= k)
+		waitpid(all->pid[i], &status, 0);
+	ft_closefd_and_killpid(k, fd, all);
 }
 
 void	ft_pipe(t_all *all)
@@ -142,5 +100,10 @@ void	ft_pipe(t_all *all)
 	ft_make_pipe(all, k);
 	dup2(all->fdtmp_0, 0);
 	dup2(all->fdtmp_1, 1);
+	if (all->fdtmp_0)
+		close(all->fdtmp_0);
+	if (all->fdtmp_1)
+		close(all->fdtmp_1);
 	all->pipe = 0;
+	g_pipe++;
 }

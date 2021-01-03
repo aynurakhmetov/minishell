@@ -70,6 +70,7 @@ void	ft_execve(t_all *all)
 		ft_putstr_fd(all->arg[0], 1);
 		ft_putendl_fd(": command not found", 1);
 		g_res = 127;
+		i = g_res;
 	}
 	exit(i);
 }

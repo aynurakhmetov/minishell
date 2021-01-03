@@ -42,7 +42,7 @@ void	ft_make_execve(t_all *all)
 
 	g_execve_signal = 1;
 	if ((pid = fork()) < 0)
-		ft_putendl_fd("fork_error", 1);
+		ft_putendl_fd("fork error", 1);
 	else if (pid == 0)
 		ft_execve(all);
 	waitpid(pid, &status, 0);
@@ -101,7 +101,6 @@ void	ft_switch_function(t_all *all)
 	{
 		ft_free_array(all->arg);
 		all->arg = tmp;
-		k = 0;
 	}
 }
 
