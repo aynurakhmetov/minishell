@@ -105,5 +105,4 @@ void	ft_pipe(t_all *all)
 	if (all->fdtmp_1)
 		close(all->fdtmp_1);
 	all->pipe = 0;
-	g_pipe++;
 }

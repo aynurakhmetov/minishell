@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 20:36:25 by ajeanett          #+#    #+#             */
-/*   Updated: 2021/01/02 21:04:50 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/03 13:13:22 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,9 +91,9 @@ int		check_redir(char *line, int i)
 			return (1);
 		}
 	}
-	if (check_left_redir(line, i))
+	else if (check_right_redir(line, i))
 		return (1);
-	if (check_right_redir(line, i))
+	if (check_left_redir(line, i))
 		return (1);
 	return (0);
 }

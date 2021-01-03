@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 17:31:53 by ajeanett          #+#    #+#             */
-/*   Updated: 2021/01/02 21:13:51 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/03 12:54:36 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ int					g_read_start;
 int					g_all_start;
 int					g_execve_signal;
 int					g_res;
-int					g_pipe;
 
 typedef struct		s_list_arg
 {
@@ -128,5 +127,8 @@ void				ft_react_c(void);
 void				ft_react_slash(void);
 void				ft_get_newarg(t_all *all, char **str, int i, int k);
 void				ft_make_newarg(t_all *all, int pipenum);
+void				set_pipe(t_all *all, int *i, char c, char *line);
+void				set_redir(t_all *all, int *i, char c, char *line);
+void				add_arg(t_all *all);
 
 #endif

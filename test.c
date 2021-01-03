@@ -66,7 +66,6 @@ int			main(int argc, char **argv, char **envp)
 	t_all	all;
 	char	*line;
 	int		ret;
-	g_pipe = 0;
 
 	init_struct(&all);
 	init_env(&all, envp);

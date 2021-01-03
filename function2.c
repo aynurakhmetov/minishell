@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 20:15:14 by ajeanett          #+#    #+#             */
-/*   Updated: 2021/01/02 23:11:29 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/03 12:52:22 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,36 @@ int			check_end(t_all *all, char c)
 		return (1);
 	}
 	return (0);
+}
+
+void		set_pipe(t_all *all, int *i, char c, char *line)
+{
+	int	tmp;
+
+	tmp = *i;
+	if (line[tmp - 1] != ' ')
+		add_arg(all);
+	line_to_arg(&(all->arg[all->count]), c);
+	if (line[tmp + 1] != ' ')
+		add_arg(all);
+	all->pipe = 1;
+}
+
+void		set_redir(t_all *all, int *i, char c, char *line)
+{
+	int tmp;
+
+	tmp = *i;
+	if (line[tmp - 1] != ' ')
+		add_arg(all);
+	line_to_arg(&(all->arg[all->count]), c);
+	if (c == '>' && line[tmp + 1] == '>')
+	{
+		line_to_arg(&(all->arg[all->count]), c);
+		tmp++;
+	}
+	if (line[tmp + 1] != ' ')
+		add_arg(all);
+	all->redir = 1;
+	*i = tmp;
 }

@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 19:47:21 by ajeanett          #+#    #+#             */
-/*   Updated: 2021/01/02 20:25:49 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/03 12:54:48 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,16 @@ int			check_parser_var(t_all *all, int *i, char c, char *line)
 	return (0);
 }
 
+void		add_arg(t_all *all)
+{
+	all->name_parsed = 1;
+	all->count++;
+	all->size++;
+	all->arg = ft_realloc(all->arg, all->size);
+	all->arg[all->count] = ft_strdup("");
+	all->arg[all->count + 1] = NULL;
+}
+
 void		main_parser(t_all *all, char c, char *line, int *i)
 {
 	if (check_end(all, c) == 1)
@@ -78,12 +88,13 @@ void		main_parser(t_all *all, char c, char *line, int *i)
 		return ;
 	if (c)
 	{
-		line_to_arg(&(all->arg[all->count]), c);
+		if (c == '|' && all->pipe == 0)
+			set_pipe(all, i, c, line);
+		else if (c == '<' || c == '>')
+			set_redir(all, i, c, line);
+		else
+			line_to_arg(&(all->arg[all->count]), c);
 		if (all->name_parsed == 0 || all->name_parsed == 2)
 			all->name_parsed = 1;
-		if (c == '|' && all->pipe == 0)
-			all->pipe = 1;
-		if (c == '<' || c == '>')
-			all->redir = 1;
 	}
 }
