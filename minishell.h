@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 17:31:53 by ajeanett          #+#    #+#             */
-/*   Updated: 2021/01/02 21:13:51 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/03 12:54:36 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,5 +125,8 @@ void				ft_close_fd(t_all *all);
 void				ft_signal_treatment(t_all *all, char buf_one, char *mem);
 void				ft_react_c(void);
 void				ft_react_slash(void);
+void				set_pipe(t_all *all, int *i, char c, char *line);
+void				set_redir(t_all *all, int *i, char c, char *line);
+void				add_arg(t_all *all);
 
 #endif
