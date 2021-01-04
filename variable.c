@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   variable.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
+/*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 20:08:27 by ajeanett          #+#    #+#             */
-/*   Updated: 2020/12/25 20:08:27 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/04 12:51:38 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,20 @@ char	*find_var(char *str, char **envp)
 {
 	char	*find;
 	int		i;
+	size_t	len;
 
 	i = 0;
 	while (envp[i])
 	{
+		len = 0;
+		while (envp[i][len] != '=')
+			len++;
 		if (ft_strncmp(str, envp[i], ft_strlen(str)) == 0)
 		{
 			find = ft_strchr(envp[i], '=');
 			find++;
-			return (find);
+			if (len == ft_strlen(str))
+				return (find);
 		}
 		i++;
 	}

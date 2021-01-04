@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_choice.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
+/*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 07:04:14 by gmarva            #+#    #+#             */
-/*   Updated: 2021/01/02 20:26:49 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/04 11:52:57 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void	ft_switch_function(t_all *all)
 
 void	ft_choice_function(t_all *all)
 {
+	all->newarg = NULL;
 	if (all->pipe == 1 || all->redir == 1)
 	{
 		if (!(all->newarg = (char **)malloc(sizeof(char*) * 2)))
@@ -120,9 +121,6 @@ void	ft_choice_function(t_all *all)
 		ft_redir(all);
 	else
 		ft_switch_function(all);
-	if (all->pipe == 1 || all->redir == 1)
-	{
-		if (all->newarg && all->newarg[0])
+	if (all->newarg && all->newarg[0])
 			ft_free_array(all->newarg);
-	}
 }
