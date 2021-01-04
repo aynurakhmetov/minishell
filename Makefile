@@ -6,7 +6,7 @@
 #    By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/09 15:15:25 by ajeanett          #+#    #+#              #
-#    Updated: 2021/01/04 17:57:26 by ajeanett         ###   ########.fr        #
+#    Updated: 2021/01/04 19:00:59 by ajeanett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,9 +30,11 @@ $(NAME): $(OBJECTS)
 
 clean:
 	rm -rf $(OBJECTS)
+	make clean -C libft/
 
 fclean: clean
 	rm -rf $(NAME)
+	make fclean -C libft/
 
 re: fclean all
 

@@ -6,7 +6,7 @@
 #    By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/05/25 14:13:45 by ajeanett          #+#    #+#              #
-#    Updated: 2020/10/26 13:15:13 by ajeanett         ###   ########.fr        #
+#    Updated: 2021/01/04 19:04:23 by ajeanett         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,11 +50,11 @@ bonus:
 	$(MAKE) MAKE_BONUS=1 all
 
 clean:
-	rm -rf $(OBJECTS)
-	rm -rf $(B_OBJECTS)
+	@rm -rf $(OBJECTS)
+	@rm -rf $(B_OBJECTS)
 
 fclean: clean
-	rm -rf $(NAME)
+	@rm -rf $(NAME)
 
 re: fclean all
 
