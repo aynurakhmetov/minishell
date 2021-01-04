@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser_check2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
+/*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 20:42:17 by ajeanett          #+#    #+#             */
-/*   Updated: 2021/01/02 21:04:41 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/04 17:58:39 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	quotes_flag(char c, t_all *all)
 {

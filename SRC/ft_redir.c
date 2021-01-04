@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 11:03:55 by gmarva            #+#    #+#             */
-/*   Updated: 2021/01/04 14:08:22 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/04 18:41:14 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,13 +94,7 @@ void	ft_add_write_args(t_all *all, int *redir, int k)
 			ft_make_newarg2(all, i + 2);
 			j = 0;
 			while (all->newarg[++j] != 0)
-			{
-     			ft_putstr_fd(all->newarg[j], 1);
-                if (all->newarg[j + 1] != 0)
-                    write(1, " ", 1);
-                else
-                    write(1, "\n", 1);  
-			}
+				ft_putstr_to_arg(all, j);
 		}
 		if (redir[i] == 3)
 		{
@@ -127,8 +121,10 @@ void	ft_redir(t_all *all)
 	if (all->pipe == 1)
 		ft_pipe(all);
 	else
+	{
 		ft_switch_function(all);
-	ft_add_write_args(all, redir, k);
+		ft_add_write_args(all, redir, k);
+	}
 	ft_close_fd(all);
 	if (redir)
 		free(redir);

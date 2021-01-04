@@ -6,11 +6,11 @@
 /*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 19:14:04 by ajeanett          #+#    #+#             */
-/*   Updated: 2021/01/04 13:33:36 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/04 17:58:20 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	init_struct(t_all *all)
 {

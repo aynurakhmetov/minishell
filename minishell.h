@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 17:31:53 by ajeanett          #+#    #+#             */
-/*   Updated: 2021/01/04 17:39:16 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/04 18:42:13 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,5 +137,6 @@ void				set_redir(t_all *all, int *i, char c, char *line);
 void				add_arg(t_all *all);
 void				space_skip(t_all *all, int *i);
 int					check_var_digit(char c, int tmp, int *i);
+void				ft_putstr_to_arg(t_all *all, int j);
 
 #endif

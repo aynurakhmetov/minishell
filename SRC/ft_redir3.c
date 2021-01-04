@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redir3.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmarva <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 14:46:48 by gmarva            #+#    #+#             */
-/*   Updated: 2020/12/26 14:46:50 by gmarva           ###   ########.fr       */
+/*   Updated: 2021/01/04 18:47:36 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,13 @@ void	ft_close_fd(t_all *all)
 		close(all->fd);
 		close(all->fdtmp[1]);
 	}
+}
+
+void	ft_putstr_to_arg(t_all *all, int j)
+{
+	ft_putstr_fd(all->newarg[j], 1);
+	if (all->newarg[j + 1] != 0)
+		write(1, " ", 1);
+	else
+		write(1, "\n", 1);
 }

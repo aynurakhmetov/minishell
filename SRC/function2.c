@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   function2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
+/*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 20:15:14 by ajeanett          #+#    #+#             */
-/*   Updated: 2021/01/03 12:52:22 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/04 17:57:56 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 char		**ft_realloc(char **ptr, size_t newsize)
 {

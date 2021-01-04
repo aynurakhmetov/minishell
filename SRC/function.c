@@ -6,11 +6,11 @@
 /*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 19:20:19 by ajeanett          #+#    #+#             */
-/*   Updated: 2020/12/23 21:00:48 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/04 17:57:51 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int		ft_isspace(int c)
 {

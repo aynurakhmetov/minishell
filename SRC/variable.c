@@ -6,11 +6,11 @@
 /*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 20:08:27 by ajeanett          #+#    #+#             */
-/*   Updated: 2021/01/04 12:51:38 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/04 17:58:45 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 char	*find_var(char *str, char **envp)
 {

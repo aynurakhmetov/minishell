@@ -6,11 +6,11 @@
 /*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 15:27:22 by ajeanett          #+#    #+#             */
-/*   Updated: 2021/01/04 17:46:48 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/04 17:58:51 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	var_to_arg2(char *var, t_all *all)
 {

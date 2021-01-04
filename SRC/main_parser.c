@@ -6,11 +6,11 @@
 /*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 19:47:21 by ajeanett          #+#    #+#             */
-/*   Updated: 2021/01/04 13:01:05 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/04 17:58:25 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 char		check_backslash_m(t_all *all, int *i, char c, char *line)
 {

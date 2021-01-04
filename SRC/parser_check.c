@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parser_check.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
+/*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 20:36:25 by ajeanett          #+#    #+#             */
-/*   Updated: 2021/01/03 13:13:22 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/04 17:58:34 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	ft_e(char c)
 {

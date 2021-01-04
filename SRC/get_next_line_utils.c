@@ -6,11 +6,11 @@
 /*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/03 13:18:38 by gmarva            #+#    #+#             */
-/*   Updated: 2020/12/25 10:20:43 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/04 17:58:01 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 size_t	ft_strlen2(const char *str)
 {
