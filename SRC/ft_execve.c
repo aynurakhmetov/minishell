@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_execve.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
+/*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/28 22:05:14 by gmarva            #+#    #+#             */
-/*   Updated: 2021/01/02 20:27:22 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/04 13:59:24 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int		ft_do_execve(t_all *all, char **tmp, char *mem, int i)
 {
 	int res;
 
+	res = 0;
 	if (i != -1)
 	{
 		tmp = ft_split(&all->env[i][5], ':');

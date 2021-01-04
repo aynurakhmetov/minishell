@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
+/*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 19:14:04 by ajeanett          #+#    #+#             */
-/*   Updated: 2021/01/02 20:25:40 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/04 13:33:36 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	init_struct(t_all *all)
 	all->count = 0;
 	g_res = 0;
 	g_all_start = 0;
+	g_sign = 0;
 }
 
 void	init_env(t_all *all, char **envp)

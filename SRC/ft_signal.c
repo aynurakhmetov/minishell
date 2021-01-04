@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_signal.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
+/*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 16:22:24 by gmarva            #+#    #+#             */
-/*   Updated: 2021/01/02 22:49:05 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/04 13:34:02 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	ft_react_c(void)
 	else
 	{
 		ft_putstr_fd("\b\b  \b\b\n", 1);
+		g_sign = 1;
 		g_res = 130;
 	}
 }
@@ -35,6 +36,7 @@ void	ft_react_slash(void)
 		ft_putstr_fd("Quit: 3\n", 1);
 		g_execve_signal = 0;
 		g_res = 131;
+		g_sign = 1;
 	}
 }
 

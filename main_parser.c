@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_parser.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
+/*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/23 19:47:21 by ajeanett          #+#    #+#             */
-/*   Updated: 2021/01/03 12:54:48 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/04 13:01:05 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void		main_parser(t_all *all, char c, char *line, int *i)
 		return ;
 	if (c)
 	{
-		if (c == '|' && all->pipe == 0)
+		if (c == '|')
 			set_pipe(all, i, c, line);
 		else if (c == '<' || c == '>')
 			set_redir(all, i, c, line);

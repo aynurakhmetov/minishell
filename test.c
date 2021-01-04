@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
+/*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 18:01:16 by ajeanett          #+#    #+#             */
-/*   Updated: 2021/01/02 21:37:50 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/04 17:39:05 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,42 @@ void		space_skip(t_all *all, int *i)
 	*i = tmp;
 }
 
+// char		*pure_d(char *arg, t_info *info)
+// {
+// 	t_utils	*utils;
+// 	char	*tmp;
+
+// 	if (!arg)
+// 		return (NULL);
+// 	utils = utils_init();
+// 	while (arg[++utils->i])
+// 		if (arg[utils->i] == '$')
+// 			utils->tmp = end_pars03(utils, arg, info->env_list);
+// 		else if (arg[utils->i] == '\'')
+// 		{
+// 			utils->tmp = strj(utils->tmp, arg[utils->i]);
+// 			while (arg[++utils->i] && arg[utils->i] != '\'')
+// 				utils->tmp = strj(utils->tmp, arg[utils->i]);
+// 			if (arg[utils->i])
+// 				utils->tmp = strj(utils->tmp, arg[utils->i]);
+// 			if (!arg[utils->i])
+// 				return (utils->tmp);
+// 		}
+// 		else
+// 			utils->tmp = strj(utils->tmp, arg[utils->i]);
+// 	tmp = ft_strdup(utils->tmp);
+// 	utils_free(utils);
+// 	free(utils);
+// 	return (tmp);
+// }
+
 void		parser(char *line, t_all *all)
 {
 	int	i;
 
 	if (check_syntax(line, all))
 		return ;
+	
 	init_arg(all);
 	g_all_start++;
 	i = -1;
@@ -44,7 +74,7 @@ void		parser(char *line, t_all *all)
 				line[i] != '"' && line[i] != '\0')
 			main_parser(all, line[i], line, &i);
 		if (all->var == 1 && all->backslash == 0)
-			check_var(line, &i, &(all->arg[all->count]), all);
+			check_var2(line, &i, &(all->arg[all->count]), all);
 	}
 	if (all->arg[0] != NULL)
 		ft_choice_function(all);

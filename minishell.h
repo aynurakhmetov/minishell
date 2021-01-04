@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ajeanett <ajeanett@42.ru>                  +#+  +:+       +#+        */
+/*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/10/10 17:31:53 by ajeanett          #+#    #+#             */
-/*   Updated: 2021/01/03 12:54:36 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/04 17:39:16 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ int					g_read_start;
 int					g_all_start;
 int					g_execve_signal;
 int					g_res;
+int					g_sign;
 
 typedef struct		s_list_arg
 {
@@ -89,7 +90,11 @@ int					check_parser_var(t_all *all, int *i, char c, char *line);
 void				main_parser(t_all *all, char c, char *line, int *i);
 char				*find_var(char *str, char **envp);
 void				var_to_arg(char *var, t_all *all);
+void				var_to_arg2(char *var, t_all *all);
+int					cut_var(char *line, int tmp, int *i, t_all *all);
+int					cut_var2(char *line, int tmp, int *i, t_all *all);
 int					check_var(char *line, int *i, char **arg, t_all *all);
+int					check_var2(char *line, int *i, char **arg, t_all *all);
 void				check_backslash(t_all *all, int *i, char c, char next);
 int					check_d_var_result(t_all *all, int *i);
 void				dqotes_parser(t_all *all, char *line, int *i);
@@ -130,5 +135,7 @@ void				ft_make_newarg(t_all *all, int pipenum);
 void				set_pipe(t_all *all, int *i, char c, char *line);
 void				set_redir(t_all *all, int *i, char c, char *line);
 void				add_arg(t_all *all);
+void				space_skip(t_all *all, int *i);
+int					check_var_digit(char c, int tmp, int *i);
 
 #endif

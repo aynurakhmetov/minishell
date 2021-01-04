@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_redir.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gmarva <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/22 11:03:55 by gmarva            #+#    #+#             */
-/*   Updated: 2020/12/22 11:03:56 by gmarva           ###   ########.fr       */
+/*   Updated: 2021/01/04 14:08:22 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,13 @@ void	ft_add_write_args(t_all *all, int *redir, int k)
 			ft_make_newarg2(all, i + 2);
 			j = 0;
 			while (all->newarg[++j] != 0)
-				write(1, all->newarg[j], ft_strlen(all->newarg[j]));
+			{
+     			ft_putstr_fd(all->newarg[j], 1);
+                if (all->newarg[j + 1] != 0)
+                    write(1, " ", 1);
+                else
+                    write(1, "\n", 1);  
+			}
 		}
 		if (redir[i] == 3)
 		{
