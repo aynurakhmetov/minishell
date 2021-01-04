@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/26 07:04:14 by gmarva            #+#    #+#             */
-/*   Updated: 2021/01/04 11:52:57 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/04 12:56:04 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,5 +122,5 @@ void	ft_choice_function(t_all *all)
 	else
 		ft_switch_function(all);
 	if (all->newarg && all->newarg[0])
-			ft_free_array(all->newarg);
+		ft_free_array(all->newarg);
 }
