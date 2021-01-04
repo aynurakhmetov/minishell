@@ -6,7 +6,7 @@
 /*   By: ajeanett <ajeanett@21-school.ru>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/16 18:01:16 by ajeanett          #+#    #+#             */
-/*   Updated: 2021/01/04 17:39:05 by ajeanett         ###   ########.fr       */
+/*   Updated: 2021/01/04 17:47:23 by ajeanett         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,42 +23,12 @@ void		space_skip(t_all *all, int *i)
 	*i = tmp;
 }
 
-// char		*pure_d(char *arg, t_info *info)
-// {
-// 	t_utils	*utils;
-// 	char	*tmp;
-
-// 	if (!arg)
-// 		return (NULL);
-// 	utils = utils_init();
-// 	while (arg[++utils->i])
-// 		if (arg[utils->i] == '$')
-// 			utils->tmp = end_pars03(utils, arg, info->env_list);
-// 		else if (arg[utils->i] == '\'')
-// 		{
-// 			utils->tmp = strj(utils->tmp, arg[utils->i]);
-// 			while (arg[++utils->i] && arg[utils->i] != '\'')
-// 				utils->tmp = strj(utils->tmp, arg[utils->i]);
-// 			if (arg[utils->i])
-// 				utils->tmp = strj(utils->tmp, arg[utils->i]);
-// 			if (!arg[utils->i])
-// 				return (utils->tmp);
-// 		}
-// 		else
-// 			utils->tmp = strj(utils->tmp, arg[utils->i]);
-// 	tmp = ft_strdup(utils->tmp);
-// 	utils_free(utils);
-// 	free(utils);
-// 	return (tmp);
-// }
-
 void		parser(char *line, t_all *all)
 {
 	int	i;
 
 	if (check_syntax(line, all))
 		return ;
-	
 	init_arg(all);
 	g_all_start++;
 	i = -1;
